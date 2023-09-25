@@ -1,0 +1,46 @@
+.container {
+  .manageStatistic_container {
+    padding: 40px 60px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    .manageStatistic_title {
+    }
+    .manageStatistic_selection {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .manageStatistic_selection-type {
+        flex-basis: 50%;
+        .css-1869usk-MuiFormControl-root {
+          width: 100%;
+        }
+      }
+      .manageStatistic_selection-time {
+        flex-basis: 40%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .css-dmmspl-MuiFormGroup-root {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-direction: row;
+        }
+        .css-1nrlq1o-MuiFormControl-root {
+          flex-basis: 50%;
+        }
+        .profile-form__input {
+          flex-basis: 45%;
+          label {
+            display: none;
+          }
+          input {
+            height: 15px;
+          }
+        }
+      }
+    }
+    .manageStatistic_result {
+    }
+  }
+}

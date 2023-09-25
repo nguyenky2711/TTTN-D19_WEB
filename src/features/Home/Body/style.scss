@@ -1,0 +1,12 @@
+.product_container {
+  width: 100%;
+  .product_card-List {
+    display: grid;
+    // grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 60px;
+    width: 100%;
+    // flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}

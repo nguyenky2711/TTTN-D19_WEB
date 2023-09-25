@@ -1,0 +1,128 @@
+.containter {
+  padding: 15px 50px;
+  box-shadow: rgba(25, 60, 77, 0.4) 0px 25px 20px -20px;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .logo {
+      display: flex;
+      align-items: center;
+      svg {
+        color: #1eb853;
+        width: 2em;
+        height: 2em;
+      }
+      p {
+        font-size: 25px;
+      }
+    }
+    .header-mid {
+      flex-basis: 70%;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      a {
+        font-weight: 500;
+        font-size: 17px;
+        color: #000;
+        &.active {
+          color: #1eb853;
+        }
+      }
+    }
+    .auth_option {
+      flex-basis: 20%;
+      display: flex;
+      justify-content: space-between;
+      a {
+        font-size: 18px;
+        padding: 10px 16px;
+        border-radius: 10px;
+        color: #1eb853;
+      }
+    }
+    .left_header_container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-basis: 8%;
+      .cart_container {
+        position: relative;
+        cursor: pointer;
+        svg {
+          width: 1.5em;
+          height: 1.5em;
+        }
+        p {
+          position: absolute;
+          top: -8px;
+          right: -20px;
+          color: white;
+          background: #1eb853;
+          height: 20px;
+          width: 20px;
+          padding: 4px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+        }
+      }
+      .account_container {
+        position: relative;
+        cursor: pointer;
+        &:hover {
+          > svg {
+            color: #1eb853;
+          }
+        }
+        svg {
+          width: 1.5em;
+          height: 1.5em;
+        }
+        .account_option {
+          display: none;
+          position: absolute;
+          top: 40px;
+          right: 0;
+          width: 180px;
+          padding: 10px 16px;
+          flex-direction: column;
+          align-items: flex-start;
+          background: white;
+          border: 1px solid #1eb853;
+          z-index: 10;
+          p {
+            font-size: 18px;
+            font-weight: 400;
+          }
+          a {
+            font-size: 17px;
+            padding: 10px 0px;
+            color: #000;
+            &:hover {
+              color: #1eb853;
+            }
+          }
+          .account_option-logout {
+            display: flex;
+            align-items: center;
+
+            svg {
+              width: 0.8em;
+              height: 0.8em;
+              margin-right: 15px;
+            }
+          }
+        }
+        // &:hover {
+        //     .account_option {
+        //         display: flex;
+        //     }
+        // }
+      }
+    }
+  }
+}

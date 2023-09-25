@@ -1,0 +1,33 @@
+.container {
+  .orderHistory_container {
+    .orderHistory_title {
+      margin-bottom: 35px;
+    }
+    .orderHistory_content {
+      margin-bottom: 15px;
+      p {
+        font-weight: 600;
+        span {
+          font-size: 17px;
+        }
+      }
+    }
+    .orderHistoryTable {
+      .orderHistory_item-action {
+        width: 80%;
+        > div {
+          transition: 0.3s;
+          svg {
+            margin-right: 15px;
+          }
+          &:hover {
+            svg,
+            p {
+              color: #1eb853;
+            }
+          }
+        }
+      }
+    }
+  }
+}

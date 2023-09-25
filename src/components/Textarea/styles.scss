@@ -1,0 +1,55 @@
+// @use '../../../assets/styles/' as *;
+
+.custom-textarea {
+  &:hover {
+    .ql-editor {
+      border: 1px solid #1eb853;
+      border-top: none;
+    }
+
+    .ql-toolbar.ql-snow {
+      border: 1px solid #1eb853;
+    }
+  }
+
+  .custom-textarea__label {
+    // font-family: $f-family;
+    font-size: 14;
+    font-weight: 500;
+    color: #000;
+  }
+  &__error,
+  &__label {
+    width: 100%;
+    text-align: left;
+  }
+
+  .ql-container.ql-snow {
+    border: none;
+  }
+
+  .ql-editor {
+    height: 150px !important;
+    // font-family: $f-family;
+    border: 1px solid rgb(119, 119, 119);
+    border-top: none;
+    border-radius: 2px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+
+  .ql-toolbar.ql-snow {
+    // font-family: $f-family;
+    border: 1px solid rgb(119, 119, 119);
+    border-radius: 2px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  .ql-editor.ql-blank::before {
+    font-style: normal;
+  }
+  .field-requirment {
+    color: red;
+  }
+}

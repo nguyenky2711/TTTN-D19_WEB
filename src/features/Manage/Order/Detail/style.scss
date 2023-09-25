@@ -1,0 +1,24 @@
+.container {
+  .orderHistory_container {
+    .orderHistory_title {
+      margin-bottom: 35px;
+    }
+    .orderHistoryTable {
+      .orderHistory_item-action {
+        width: 80%;
+        > div {
+          transition: 0.3s;
+          svg {
+            margin-right: 15px;
+          }
+          &:hover {
+            svg,
+            p {
+              color: #1eb853;
+            }
+          }
+        }
+      }
+    }
+  }
+}

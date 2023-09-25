@@ -1,0 +1,36 @@
+// @use '../../../assets/styles/' as *;
+
+.react-datepicker__input-container {
+  input {
+    // font-family: $f-family;
+    border: 1px solid #1eb853;
+    border-radius: 2px;
+    width: 100%;
+    padding: 21px 12px;
+    margin-top: 8px;
+    height: 45px;
+
+    &:hover {
+      border: 1px solid #1eb853 !important;
+      box-shadow: #1eb854c1 0px 3px 8px;
+      &::placeholder {
+        color: #1eb853;
+      }
+    }
+
+    &:focus {
+      outline: #1eb853;
+      box-shadow: #1eb854c1 0px 3px 8px;
+      &::placeholder {
+        color: #1eb853;
+      }
+    }
+    &::placeholder {
+      // font-family: $f-family;
+    }
+  }
+}
+.profile-form__input {
+  display: flex;
+  flex-direction: column;
+}

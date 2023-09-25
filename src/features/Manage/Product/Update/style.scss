@@ -1,0 +1,189 @@
+.container {
+  .addProduct_container {
+    padding: 40px 60px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    h4 {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .form_product {
+      > form {
+        .form_product-name-type {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-direction: row;
+          margin-bottom: 25px;
+          .form_product-name {
+            flex-basis: 50%;
+            label {
+              margin-bottom: 10px;
+              display: inline-block;
+            }
+            input {
+              width: 100%;
+            }
+          }
+          .form_product-type {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-basis: 40%;
+            flex-direction: row;
+            #demo-radio-buttons-group-label {
+              flex-basis: 40%;
+            }
+            .radioButton {
+              flex-basis: 55%;
+              display: flex;
+              justify-content: space-between;
+              flex-direction: row;
+              align-items: center;
+              .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+                color: #1eb853;
+              }
+            }
+          }
+        }
+        .custom-textarea {
+          margin-bottom: 25px;
+          label {
+            margin-bottom: 10px;
+            display: inline-block;
+          }
+        }
+        .form_product-picture {
+          margin-bottom: 25px;
+          label {
+            margin-bottom: 10px;
+            display: inline-block;
+            font-weight: 500;
+            color: #000;
+          }
+          .file-card {
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 3px dashed #1eb854c1;
+            background-color: #edf2f7;
+            min-width: 380px;
+            min-height: 100px;
+
+            .file-inputs {
+              position: relative;
+              margin-bottom: 1.5em;
+
+              input {
+                position: relative;
+                text-align: right;
+                opacity: 0;
+                z-index: 2;
+                cursor: pointer;
+                height: 46px;
+                max-width: 200px;
+              }
+
+              button {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                color: #fff;
+                background-color: #1eb854c1;
+                font-size: 1.1rem;
+                cursor: pointer;
+                border-radius: 4px;
+                border: none;
+                outline: none;
+                // padding: 1em;
+                transition: background-color 0.4s;
+                box-shadow: 0px 8px 24px rgba(149, 157, 165, 0.5);
+
+                i {
+                  width: 1.5em;
+                  height: 1.5em;
+                  padding: 0.4em;
+                  background-color: #fff;
+                  color: #1eb854c1;
+                  border-radius: 50%;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  margin-right: 0.8em;
+                  font-size: 0.8em;
+                }
+              }
+
+              &:hover {
+                button {
+                  background-color: #1eb853;
+                }
+              }
+            }
+          }
+
+          .main {
+            font-weight: bold;
+            margin-bottom: 0.4em;
+          }
+
+          .info {
+            font-size: 0.8rem;
+          }
+          li {
+            list-style: none;
+            margin: 1.2em 0;
+            background-color: #1eb8543d;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            padding: 1.2em 1.5em;
+
+            svg {
+              color: #1eb853;
+              &:first-child {
+                font-size: 1.2em;
+                margin-right: 0.8em;
+              }
+            }
+
+            p {
+              flex: 1;
+              font-size: 0.9rem;
+            }
+
+            .actions {
+              justify-self: flex-end;
+              cursor: pointer;
+
+              .fa-spinner {
+                font-size: 1.2em;
+              }
+            }
+          }
+        }
+        .form_product-button {
+          margin: 0px auto;
+          padding: 12px 20px;
+          font-size: 16px;
+          border: 2px solid #1eb853;
+          background-color: #1eb854c1;
+          color: white;
+          &:hover {
+            background-color: #1eb853;
+          }
+        }
+      }
+    }
+  }
+}

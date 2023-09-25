@@ -1,0 +1,130 @@
+.container {
+  .manageDiscount_container {
+    .css-5wly58-MuiDataGrid-root .MuiDataGrid-columnHeader {
+      background-color: #ff80005f;
+      border-right: 1px solid #000;
+      border-top: 1px solid #000;
+
+      //   color: white;
+      &:first-child {
+        border-left: 1px solid #000;
+      }
+    }
+    .css-5wly58-MuiDataGrid-root .MuiDataGrid-withBorderColor {
+      border-color: black;
+    }
+    .css-5wly58-MuiDataGrid-root
+      .MuiDataGrid-row:not(.MuiDataGrid-row--dynamicHeight)
+      > .MuiDataGrid-cell {
+      border-right: 1px solid #000;
+      &:first-child {
+        border-left: 1px solid #000;
+      }
+    }
+    .manageDiscount_header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 35px;
+      &-left {
+        h4 {
+          font-size: 30px;
+        }
+      }
+      &-right {
+        background-color: #1eb854c1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        &:hover {
+          background-color: #1eb853;
+        }
+        p {
+          color: white;
+        }
+        svg {
+          color: white;
+          width: 1.3em;
+          height: 1.3em;
+          margin-right: 10px;
+        }
+      }
+    }
+    .manageDiscountTable {
+      .discount_item-action {
+        width: 80%;
+        margin: 0px auto;
+        cursor: pointer;
+        div {
+          div {
+            display: flex;
+            align-items: center;
+            //   justify-content: space-between;
+            svg {
+              margin-right: 15px;
+            }
+            &:hover {
+              svg,
+              p {
+                color: #1eb853;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .discount_form-container {
+    width: 35%;
+    margin: 0px auto;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    height: max-content;
+    border-radius: 10px;
+    align-items: center;
+    background-color: #fff;
+    padding: 30px 50px;
+    .discount_form-title {
+      font-weight: 700;
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 35px;
+    }
+    .discount_form-content {
+      > form {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 15px;
+        .discount_form-btnGroup {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 50%;
+          > button {
+            // width: 57%;
+            border: none;
+            background: none;
+            padding: 8px 16px;
+            font-size: 14px;
+          }
+          .discount_form-addBtn {
+            // margin: 0px auto;
+            background: #1eb853;
+            color: white;
+          }
+          .discount_form-cancelBtn {
+            border: 1px solid #1eb853;
+            color: #1eb853;
+            transition: 0.3s;
+            &:hover {
+              color: white;
+              background-color: #1eb853;
+            }
+          }
+        }
+      }
+    }
+  }
+}

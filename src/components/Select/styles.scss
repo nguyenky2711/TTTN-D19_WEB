@@ -1,0 +1,91 @@
+// @use '../../../assets/styles/' as *;
+
+.select-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  .select-label {
+    font-size: 14px;
+    margin-bottom: 7px;
+    // font-family: $f-family;
+    color: #29303b;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .select-error {
+    text-align: left;
+    color: red;
+    font-size: 13px;
+  }
+
+  .select-placeholder {
+    text-align: left;
+    color: #777777;
+  }
+}
+
+.select-formControl {
+  height: 45px !important;
+  &:hover {
+    // box-shadow: $primary-color-1 0 3px 8px;
+  }
+
+  & div {
+    height: 100%;
+
+    & div {
+      color: #111111;
+      font-size: 13px;
+      text-align: left;
+    }
+    & input {
+      width: 0%;
+    }
+  }
+}
+
+.select-form {
+  > div {
+    border-color: #1eb853 !important;
+    > div {
+      border-color: rgb(119, 119, 119) !important;
+    }
+  }
+  & .select-formControl {
+    // font-family: $f-family;
+    outline: none !important;
+    &:hover {
+      border-color: #1eb853;
+    }
+    .select-field {
+      border: 1px solid #1eb853 !important;
+      border-radius: 2px;
+      border: 1px solid #1eb853;
+
+      &:hover {
+        border-color: #1eb853 !important;
+        .select-placeholder {
+          color: #1eb853;
+        }
+      }
+    }
+  }
+}
+#timeStart,
+#timeEnd {
+  &:hover {
+    color: #1eb853;
+  }
+}
+
+.field-requirment {
+  color: red;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-width: 0px !important;
+}
