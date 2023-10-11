@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.scss";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { addProductToCartThunk, getCartThunk } from "../../store/action/cart";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -42,29 +42,45 @@ const ProductCard = ({ data }) => {
       }
     });
   };
+  const handleScroll = () =>{
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
   return (
-    <div className="product_card">
-      <div className="product_card-img">
-        <img
-          src={`http://localhost:4000/uploads/${data[0]?.itemDTO?.imageDTO[0]?.name}`}
-          alt=""
-        />
-        <p onClick={handleNext}>Xem chi tiết</p>
+    <div >
+    <div className="relative m-auto " data-aos="fade-up" data-aos-duration="1000">
+      <div className='relative group ' onClick={() => handleScroll()}>
+        <NavLink to={`/detail_product/${data[0]?.itemDTO?.data?.id}`}>
+          <div className='h-[380px]' >
+            <img className="h-[100%] bg-center ndv__img" src={`http://localhost:4000/uploads/${data[0]?.itemDTO?.imageDTO[0]?.name}`} alt="img" />
+            <div className='absolute top-0 w-full h-full opacity-0 bg-img__overplay group-hover:opacity-100'>
+            </div>
+          </div>
+          {data.sale && (
+            <div className="absolute w-[100px] z-10 bg-white py-2 px-4 top-3 right-3 text-[#a25f4b] text-sm tracking-widest font-bold">
+              On Sale
+            </div>
+          )}
+
+          <button className="ndv-button absolute z-2 bg-white translate-y-[70%] transition-all opacity-0 group-hover:duration-700 group-hover:translate-y-[0%] duration-600 left-[10%] group-hover:opacity-100 text-[#1d1f2e] " onClick={handleAddtoCart}>
+            THÊM GIỎ HÀNG
+          </button>
+
+        </NavLink>
       </div>
-      <div className="product_card-content">
-        <div className="product_card-price">
-          <p>
-            $ <span>{data[0]?.priceDTO[0]?.price}</span>
-          </p>
-        </div>
-        <div className="product_card-name">
-          <span onClick={handleNext}>{data[0]?.itemDTO?.data?.name}</span>
-        </div>
-        <div className="product_card-button">
-          <button onClick={handleAddtoCart}>Thêm vào giỏ hàng</button>
-        </div>
-      </div>
+
     </div>
+    <div className="mt-[25px] mb-[20px] text-center">
+      <p className="ndv-name-product">{data[0]?.itemDTO?.data?.name}</p>
+      {
+        data.sale ? (<div>
+          <span className="text-lg font-bold text-color-second">$ {data.priceOnSale} VND</span>
+          <span className="ml-2 line-through text-main">$ {data[0]?.priceDTO[0]?.price} VND</span>
+        </div>) : (<p className="text-main">$ {data[0]?.priceDTO[0]?.price} VND</p>)
+      }
+
+    </div>
+
+  </div>
   );
 };
 

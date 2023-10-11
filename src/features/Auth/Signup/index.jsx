@@ -70,12 +70,12 @@ const SignUpPage = () => {
               {errors.password?.message}
             </CustomInput>
             <CustomInput
-              label="Mật khẩu"
+              label="Xác nhận mật khẩu"
               id="confirmPassword"
               type="password"
-              placeholder="Mật khẩu"
+              placeholder="Xác nhận mật khẩu"
               register={register}
-              subtitle={"Mật khẩu"}
+              subtitle={"Xác nhận mật khẩu"}
             >
               {errors.confirmPassword?.message}
             </CustomInput>
