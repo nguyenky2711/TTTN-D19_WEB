@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import CustomInput from "../../../components/CustomInput/index";
 import { useForm } from "react-hook-form";
 import { loginThunk } from "../../../store/action/auth";
@@ -81,9 +81,14 @@ const LoginPage = () => {
             </CustomInput>
 
             <Button name={"Đăng nhập"} type="submit"></Button>
-            <p>
-              <Link to="/resetPassword/request">Quên mật khẩu? </Link>
-            </p>
+            <div className="flex justify-between">
+              <p>
+                <Link to="/resetPassword/request">Quên mật khẩu? </Link>
+              </p>
+              <p>
+                <NavLink to="/signup">Đăng ký </NavLink>
+              </p>
+            </div>
           </form>
         </div>
       </div>

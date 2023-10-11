@@ -189,7 +189,7 @@ const OrderPage = () => {
                         ${" "}
                         <span>
                           {value.quantity *
-                            value.productDTO?.priceDTO[0]?.price}
+                            value.productDTO?.priceDTO[0]?.price}VND
                         </span>
                       </p>
                     </div>
@@ -204,7 +204,7 @@ const OrderPage = () => {
             <div className="order_right-subTotal">
               <h4>Tạm tính</h4>
               <p>
-                $ <span>{cartDTO.subTotal}</span>
+                $ <span>{cartDTO.subTotal}VND</span>
               </p>
             </div>
           ) : (

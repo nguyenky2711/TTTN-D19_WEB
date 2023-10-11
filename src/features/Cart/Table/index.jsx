@@ -145,7 +145,7 @@ const CartTable = ({
         return (
           <div>
             <p>
-              $ <span>{row?.productDTO?.priceDTO[0]?.price}</span>
+              $ <span>{row?.productDTO?.priceDTO[0]?.price}VND</span>
             </p>
           </div>
         );
@@ -222,7 +222,7 @@ const CartTable = ({
           <div>
             <p>
               ${" "}
-              <span>{row.quantity * row?.productDTO?.priceDTO[0]?.price}</span>
+              <span>{row.quantity * row?.productDTO?.priceDTO[0]?.price}VND</span>
             </p>
           </div>
         );
