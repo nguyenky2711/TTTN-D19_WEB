@@ -35,22 +35,28 @@ const manage = {
     getDiscounts: (data) => {
         let url = ''
         if (data[0] != undefined && data[1] != undefined) {
-            url = `/api/orders/discount?no=${data[0]}&limit=${data[1]}`;
+            url = `/api/products/discount?no=${data[0]}&limit=${data[1]}`;
         } else {
-            url = `/api/orders/discount`;
+            url = `/api/products/discount`;
         }
         return internshipTransport.get(url);
     },
     getDiscountById: (id) => {
-        const url = `/api/orders/discount/${id}`;
+        const url = `/api/products/discount/${id}`;
         return internshipTransport.get(url);
     },
     creatDiscount: (data) => {
-        const url = `/api/orders/discount`;
+        const formDataAsObject = {};
+        data.forEach((value, key) => {
+            formDataAsObject[key] = value;
+        });
+
+        console.log(formDataAsObject);
+        const url = `/api/products/discount`;
         return internshipTransport.post(url, data);
     },
     updateDiscount: (data) => {
-        const url = `/api/orders/discount/${data[0]}`;
+        const url = `/api/products/discount/${data[0]}`;
         return internshipTransport.put(url, data[1]);
     },
     getSizes: () => {

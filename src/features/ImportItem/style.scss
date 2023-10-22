@@ -1,100 +1,101 @@
 .container {
   .import_container {
-    .import_form {
-      > div {
+    padding: 40px 60px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    .import_title {
+      h2 {
+        text-align: center;
+        margin-bottom: 15px;
+      }
+      p {
+        text-align: right;
+      }
+      span {
+        font-style: italic;
+      }
+    }
+    .ant-space {
+      flex-direction: column;
+      border-bottom: 1px solid #1eb853;
+      padding: 15px 0px;
+      .ant-space-item {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .import_form-name {
-          flex-basis: 12%;
+        width: 100%;
+        flex-direction: row;
+        .top {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          justify-content: space-between;
+          .name {
+            flex-basis: 70%;
+          }
+          .size {
+            flex-basis: 25%;
+          }
         }
-        .import_form-size-price {
-          flex-basis: 85%;
-          > div {
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            .import_form-size-radioGr {
-              display: flex;
-              flex-direction: row;
-              flex-basis: 30%;
-            }
-            .import_form-size-oldValueGr {
-              flex-basis: 85%;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              > .select-form {
-                width: 200px;
-              }
-              > .custom-input {
-                width: 180px;
-                input {
-                  width: 100%;
-                }
-              }
-            }
-            .import_form-size-newValueGr {
-              display: flex;
-              flex-basis: 85%;
-              align-items: center;
-              justify-content: space-between;
-              .import_form-size-newValue {
-                width: 130px;
-                input {
-                  width: 100%;
-                  font-size: 12px;
-                }
-              }
-              > .custom-input {
-                width: 120px;
-                input {
-                  width: 100%;
-                  font-size: 12px;
-                }
-              }
-            }
+        .importContent_container {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          justify-content: space-between;
+          flex-direction: row;
+          .price,
+          .quantity {
+            flex-basis: 18%;
           }
-          > button {
-            background-color: rgba(30, 184, 84, 0.7568627451);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            border-radius: 4px;
-            border: none;
-            color: white;
-            cursor: pointer;
-            &:hover {
-              background-color: #1eb853;
-            }
+          .size {
+            flex-basis: 25%;
           }
-          .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
-            color: #1eb853;
+          .height,
+          .width,
+          .length {
+            flex-basis: 15%;
           }
         }
       }
-      .import_form-btnGroup {
-        justify-content: flex-end;
-        > button {
-          background-color: rgba(30, 184, 84, 0.7568627451);
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 12px 16px;
-          border-radius: 4px;
-          border: none;
-          color: white;
-          font-size: 16px;
-          cursor: pointer;
-          margin-left: 25px;
-          &:hover {
-            background-color: #1eb853;
-          }
+      .removeBtn {
+        cursor: pointer;
+        transition: 0.3s;
+        svg {
+          margin-right: 10px;
+        }
+        &:hover {
+          color: #1eb853;
         }
       }
     }
+  }
+
+  .ant-form-item-explain-error {
+    font-size: 13px;
+  }
+  .ant-form-item-required {
+    &::before {
+      right: 1px;
+      top: 3px;
+      font-size: 11px !important;
+      position: absolute;
+    }
+    &::after {
+      right: -8px;
+    }
+  }
+  .ant-form-item-row {
+    display: flex;
+    flex-direction: column;
+    .ant-form-item-label {
+      text-align: left;
+      label {
+        font-weight: 700;
+      }
+    }
+  }
+  .ant-form-item-control {
+    flex: 1;
+  }
+  .ant-input-number {
+    width: 100%;
   }
 }

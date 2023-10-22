@@ -1,0 +1,56 @@
+.discount_form-container {
+  .discount_form-title {
+  }
+  .discount_form-content {
+    .ant-form-item-control {
+      flex: 1;
+    }
+    .ant-form-item-row {
+      display: flex;
+      flex-direction: column;
+      .ant-form-item-label {
+        text-align: start;
+      }
+      .ant-form-item-required {
+        &::before {
+          right: 1px;
+          top: 3px;
+          font-size: 11px !important;
+          position: absolute;
+        }
+        &::after {
+          right: -8px;
+        }
+      }
+      .ant-input-number {
+        width: 100%;
+      }
+    }
+  }
+}
+.buttonGroup {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
+  gap: 20px;
+  .cancelBtn {
+    button {
+      color: #7d7d7d;
+      &:hover {
+        color: #1eb853 !important;
+        background-color: white;
+        border: 1px solid #1eb853;
+      }
+    }
+  }
+  .submitBtn {
+    button {
+      border: 1px solid #1eb853;
+      color: #1eb853;
+      &:hover {
+        color: white !important;
+        background-color: #1eb853;
+      }
+    }
+  }
+}

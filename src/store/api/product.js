@@ -63,6 +63,18 @@ const product = {
         const url = `/api/products/price/${data[0]}`;
         return internshipTransport.put(url, data[1]);
     },
+    getDiscounts: () => {
+        const url = `/api/products/discount`;
+        return internshipTransport.get(url);
+    },
+    createDiscount: (data) => {
+        const url = `/api/products/discount`;
+        return internshipTransport.post(url, data);
+    },
+    updatePrice: (data) => {
+        const url = `/api/products/discount/${data[0]}`;
+        return internshipTransport.put(url, data[1]);
+    },
 
 };
 
