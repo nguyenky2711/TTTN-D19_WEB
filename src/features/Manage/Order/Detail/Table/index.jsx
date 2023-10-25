@@ -28,7 +28,7 @@ const OrderDetailManagerTable = ({
   const boxRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  console.log(list);
   useEffect(() => {
     if (boxRef.current) {
       const rowHeight = 120; // Chiều cao của mỗi hàng
@@ -147,7 +147,7 @@ const OrderDetailManagerTable = ({
         const { row } = params;
         return (
           <div className="product_item-stock">
-            <p>{row?.productDTO?.priceDTO[0]?.price}</p>
+            <p>{row?.productDTO?.priceDTO[0]?.discounted_price}</p>
           </div>
         );
       },

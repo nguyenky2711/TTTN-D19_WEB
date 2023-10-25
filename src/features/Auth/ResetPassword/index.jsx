@@ -30,11 +30,27 @@ const ResetPasswordPage = () => {
     let email = new FormData();
     email.append("email", data.email);
     dispatch(verifyEmailThunk(email)).then((res) => {
-      toast.success("Hãy kiểm tra mail của bạn", {
-        position: "top-right",
-        autoClose: 3000,
-        style: { color: "green", backgroundColor: "#DEF2ED" },
-      });
+      if (res?.payload?.respone?.data?.message === "User not found") {
+        toast.error("Địa chỉ Mail không tồn tại", {
+          position: "top-right",
+          autoClose: 3000,
+          style: { color: "red", backgroundColor: "#DEF2ED" },
+        });
+      } else if (
+        res?.payload?.respone?.data?.message === "Account is not confirmed"
+      ) {
+        toast.error("Tài khoản của bạn chưa được xác nhận", {
+          position: "top-right",
+          autoClose: 3000,
+          style: { color: "red", backgroundColor: "#DEF2ED" },
+        });
+      } else {
+        toast.success("Hãy kiểm tra mail của bạn", {
+          position: "top-right",
+          autoClose: 3000,
+          style: { color: "green", backgroundColor: "#DEF2ED" },
+        });
+      }
       // navigate("/login");
     });
   };

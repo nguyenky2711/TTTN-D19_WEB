@@ -14,6 +14,7 @@ import {
   changeStatusAccountThunk,
   getUsersThunk,
 } from "../../../../store/action/manage";
+import { toast } from "react-toastify";
 const ManageUserTable = ({
   list,
   listHavePages,
@@ -52,7 +53,30 @@ const ManageUserTable = ({
     sendData.append("user_id", user_id);
     sendData.append("status_id", status_id == "1" ? 2 : 1);
     dispatch(changeStatusAccountThunk(sendData)).then((res) => {
-      dispatch(getUsersThunk([no, limit])).then((res) => {});
+      if (res?.payload?.message === "User status changed successfully") {
+        toast.success(
+          status_id == "1"
+            ? "Khoá tài khoản thành công"
+            : "Mở tài khoản thành công",
+          {
+            position: "top-right",
+            autoClose: 3000,
+            style: { color: "green", backgroundColor: "#D7F1FD" },
+          }
+        );
+        reload(true);
+      } else {
+        toast.error(
+          status_id == "1"
+            ? "Khoá tài khoản thất bại"
+            : "Mở tài khoản thất bại",
+          {
+            position: "top-right",
+            autoClose: 3000,
+            style: { color: "green", backgroundColor: "#D7F1FD" },
+          }
+        );
+      }
     });
   };
   const handlePaginationChange = (event, page) => {
@@ -165,7 +189,7 @@ const ManageUserTable = ({
         const { row } = params;
         return (
           <div className="orderHistory_item-status">
-            <p>{row.statusDTO.name}</p>
+            <p>{row.statusDTO.name === "Active" ? "Mở" : "Khoá"}</p>
           </div>
         );
       },

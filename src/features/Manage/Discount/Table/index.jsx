@@ -50,15 +50,13 @@ const ManageDiscountTable = ({
   };
 
   const handleDeleteDiscount = (value) => {
-    // const sendData = {
-    //   condition: value.condition,
-    //   maxGet: value.maxGet,
-    //   status_id: 2,
-    // };
+    // console.log(value);
     const sendData = new FormData();
-    sendData.append("condition", value.condition);
-    sendData.append("maxGet", value.maxGet);
-    sendData.append("status_id", 2);
+    sendData.append("item_id", parseInt(value.itemDTO.id));
+    sendData.append("percentDiscount", Number(value.percentDiscount));
+    sendData.append("startDate", value.startDate);
+    sendData.append("endDate", value.endDate);
+    sendData.append("status_id", 10);
     dispatch(updateDiscountThunk([value.id, sendData])).then((res) => {
       if (res?.payload?.message == "Update successfully") {
         toast.success("Xoá khuyến mãi thành công", {
@@ -95,7 +93,7 @@ const ManageDiscountTable = ({
     },
     {
       field: "name",
-      headerName: "Tên khuyến mãi",
+      headerName: "Tên sản phẩm",
       // width: 70,
 
       align: "center",
@@ -107,16 +105,14 @@ const ManageDiscountTable = ({
         const { row } = params;
         return (
           <div className="orderHistory_item-name">
-            <p>
-              Giảm ${row.maxGet} cho hoá đơn từ ${row.condition}
-            </p>
+            <p>{row.itemDTO.name}</p>
           </div>
         );
       },
     },
     {
       field: "condition",
-      headerName: "Điều kiện",
+      headerName: "% Giảm",
       // width: 70,
 
       align: "center",
@@ -128,14 +124,14 @@ const ManageDiscountTable = ({
         const { row } = params;
         return (
           <div className="orderHistory_item-name">
-            <p>{row.condition}</p>
+            <p>{row.percentDiscount}</p>
           </div>
         );
       },
     },
     {
-      field: "maxGet",
-      headerName: "Giảm tối đa",
+      field: "time",
+      headerName: "Thời gian hiệu lực",
       // width: 360,
       flex: 0.2,
       height: 70,
@@ -146,7 +142,10 @@ const ManageDiscountTable = ({
         const { row } = params;
         return (
           <div className="orderHistory_item-time">
-            <p>{row.maxGet}</p>
+            <p>
+              Từ {moment(row.startDate).format("DD-MM-YYYY")} đến{" "}
+              {moment(row.endDate).format("DD-MM-YYYY")}
+            </p>
           </div>
         );
       },
@@ -166,7 +165,9 @@ const ManageDiscountTable = ({
         const { row } = params;
         return (
           <div className="orderHistory_item-status">
-            <p>{row.statusDTO.name}</p>
+            <p>
+              {row.statusDTO.name === "Active" ? "Đang có hiệu lực" : "Hết hạn"}
+            </p>
           </div>
         );
       },

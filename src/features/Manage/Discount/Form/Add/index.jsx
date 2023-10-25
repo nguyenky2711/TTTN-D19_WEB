@@ -64,13 +64,28 @@ const DiscountAddForm = () => {
     value &&
       dispatch(creatDiscountThunk(value))
         .then((res) => {
-          if (res?.payload?.message == "Create discount successfully") {
+          console.log(res);
+          if (res?.payload?.message === "Create discount successfully") {
             toast.success("Tạo mới khuyến mãi thành công", {
               position: "top-right",
               autoClose: 3000,
               style: { color: "green", backgroundColor: "#DEF2ED" },
             });
             navigate("/manage/discount");
+          } else {
+            if (res?.error?.message === "Request failed with status code 409") {
+              toast.error("Sản phẩm đã có khuyến mãi", {
+                position: "top-right",
+                autoClose: 3000,
+                style: { color: "red", backgroundColor: "#DEF2ED" },
+              });
+            } else {
+              toast.error("Thêm khuyến mãi thất bại", {
+                position: "top-right",
+                autoClose: 3000,
+                style: { color: "red", backgroundColor: "#DEF2ED" },
+              });
+            }
           }
         })
         .then(() => {

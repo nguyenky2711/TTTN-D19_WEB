@@ -602,7 +602,7 @@ const ImportPage = () => {
             }
           }}
         >
-          <Form.List name="itemlist" initialValue={[{}]}>
+          <Form.List name="itemlist" initialValue={[{ sizeType: 1 }]}>
             {(outerFields, { add: addOuter, remove: removeOuter }) => (
               <div>
                 {outerFields.map((outerField, outerIndex) => (
@@ -663,21 +663,7 @@ const ImportPage = () => {
                         "itemlist",
                         outerIndex,
                         "sizeType",
-                      ]) === 1 ? (
-                        <Form.Item
-                          className="import_item size"
-                          label="Kích thước (Size)"
-                          name={[outerField.name, "size"]}
-                          rules={[
-                            {
-                              required: true,
-                              message: "Vui lòng chọn kích thước",
-                            },
-                          ]}
-                        >
-                          <Select options={[{ value: "a", label: "as" }]} />
-                        </Form.Item>
-                      ) : (
+                      ]) === 2 ? (
                         <>
                           <Form.Item
                             className="import_item height"
@@ -722,6 +708,20 @@ const ImportPage = () => {
                             <InputNumber />
                           </Form.Item>
                         </>
+                      ) : (
+                        <Form.Item
+                          className="import_item size"
+                          label="Kích thước (Size)"
+                          name={[outerField.name, "size"]}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Vui lòng chọn kích thước",
+                            },
+                          ]}
+                        >
+                          <Select options={[{ value: "a", label: "as" }]} />
+                        </Form.Item>
                       )}
                       <Form.Item
                         className="import_item price"
@@ -774,7 +774,9 @@ const ImportPage = () => {
                 >
                   <Button
                     type="dashed"
-                    onClick={() => addOuter()} // Make sure 'add' is a valid function
+                    onClick={() => {
+                      addOuter();
+                    }} // Make sure 'add' is a valid function
                     block
                     icon={<PlusOutlined />}
                   >
@@ -796,10 +798,7 @@ const ImportPage = () => {
               </Button>
             </Form.Item>
             <Form.Item className="cancelBtn">
-              <Button
-                type="button"
-                onClick={() => navigate("/admin/import-infor")}
-              >
+              <Button type="button" onClick={() => navigate("/manage/product")}>
                 Huỷ
               </Button>
             </Form.Item>

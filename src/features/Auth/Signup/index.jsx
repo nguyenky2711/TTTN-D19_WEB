@@ -30,17 +30,29 @@ const SignUpPage = () => {
     formData.append("address", data.address);
     formData.append("phone", data.phone);
     dispatch(registerThunk(formData)).then((res) => {
-      toast.success("Đăng ký tài khoản thành công", {
-        position: "top-right",
-        autoClose: 3000,
-        style: { color: "green", backgroundColor: "#DEF2ED" },
-      });
-      toast.success("Hãy kiểm tra mail của bạn", {
-        position: "top-right",
-        autoClose: 3000,
-        style: { color: "green", backgroundColor: "#DEF2ED" },
-      });
-      navigate("/login");
+      console.log(res);
+      if (
+        res?.payload?.response?.data?.message ===
+        "Email already exists. Please use a different email address."
+      ) {
+        toast.error("Địa chỉ mail đã được dùng để đăng ký tài khoản", {
+          position: "top-right",
+          autoClose: 3000,
+          style: { color: "red", backgroundColor: "#DEF2ED" },
+        });
+      } else {
+        toast.success("Đăng ký tài khoản thành công", {
+          position: "top-right",
+          autoClose: 3000,
+          style: { color: "green", backgroundColor: "#DEF2ED" },
+        });
+        toast.success("Hãy kiểm tra mail của bạn", {
+          position: "top-right",
+          autoClose: 3000,
+          style: { color: "green", backgroundColor: "#DEF2ED" },
+        });
+        navigate("/login");
+      }
     });
   };
   return (

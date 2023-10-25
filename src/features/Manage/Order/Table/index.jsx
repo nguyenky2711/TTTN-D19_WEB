@@ -29,7 +29,6 @@ const OrderManagerTable = ({
   const boxRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   useEffect(() => {
     if (boxRef.current) {
       const rowHeight = 120; // Chiều cao của mỗi hàng

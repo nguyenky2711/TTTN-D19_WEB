@@ -25,14 +25,17 @@ const httpHandler = (baseURL) => {
     },
     function interceptError(error) {
       console.log(error)
-      switch (error.response.status) {
-        case 403:
-          return Promise.reject(error);
-        case 401:
-          return Promise.reject(error);
-        default:
-          return Promise.reject(error);
-      }
+      return (error)
+      // switch (error.response.status) {
+      //   case 409:
+      //     return Promise.reject(error);
+      //   case 403:
+      //     return Promise.reject(error);
+      //   case 401:
+      //     return Promise.reject(error);
+      //   default:
+      //     return Promise.reject(error);
+      // }
     }
   );
 

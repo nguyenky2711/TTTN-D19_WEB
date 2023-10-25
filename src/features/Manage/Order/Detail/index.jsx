@@ -23,7 +23,6 @@ const ManageOrderDetail = () => {
   const limit = 4;
   useEffect(() => {
     dispatch(getOrderDetailThunk([id, currentPage - 1, limit])).then((res) => {
-      console.log(res);
       setData(res?.payload?.data);
       setTotalPages(res?.payload?.totalPages);
     });
@@ -38,9 +37,6 @@ const ManageOrderDetail = () => {
       dispatch(getPaymentByIDThunk(data.orderDTO.payment_id)).then((res) => {
         setPaymentData(res?.payload);
       });
-      dispatch(getDiscountByIDThunk(data.orderDTO.discount_id)).then((res) => {
-        setDiscountData(res?.payload);
-      });
     }
   }, [data]);
   return (
@@ -54,7 +50,7 @@ const ManageOrderDetail = () => {
               {data && moment(data.orderDTO.created_at).format("DD-MM-YYYY")}
             </span>
           </p>
-          <p>
+          {/* <p>
             Thực tổng: $
             <span>
               {data &&
@@ -64,7 +60,7 @@ const ManageOrderDetail = () => {
           </p>
           <p>
             Giảm giá: $<span>{discountData && discountData?.data?.maxGet}</span>
-          </p>
+          </p> */}
           <p>
             Thực trả: $<span>{data && data?.orderDTO?.total}</span>
           </p>

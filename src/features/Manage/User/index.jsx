@@ -7,6 +7,7 @@ import ManageUserTable from "./Table";
 const ManageUser = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState(0);
+  const [flagReload, setFlagReload] = useState();
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 4;
@@ -16,11 +17,20 @@ const ManageUser = () => {
       setTotalPages(res?.payload?.totalPages);
     });
   }, [currentPage]);
-
+  useEffect(() => {
+    dispatch(getUsersThunk([currentPage - 1, limit])).then((res) => {
+      setData(res?.payload?.data);
+      setTotalPages(res?.payload?.totalPages);
+      setFlagReload();
+    });
+  }, [flagReload]);
   const handlePageChange = (page) => {
     if (page != currentPage) {
       setCurrentPage(page);
     }
+  };
+  const handleReload = (value) => {
+    value && setFlagReload(true);
   };
   return (
     <div className="container">
@@ -33,6 +43,7 @@ const ManageUser = () => {
             limit={limit}
             onPageChange={handlePageChange}
             totalPages={totalPages}
+            reload={handleReload}
           ></ManageUserTable>
         ) : (
           <></>

@@ -78,10 +78,11 @@ const ProductAddForm = () => {
     //   formDataAsObject[key] = value;
     // });
 
-    // console.log(formDataAsObject);
+    // console.log(formDataAsObject);"Request failed with status code 409"
     value &&
       dispatch(createItemThunk(value)).then((res) => {
-        if (res?.payload?.message == "Item created successfully") {
+        console.log(res);
+        if (res?.payload?.message === "Item created successfully") {
           toast.success("Thêm mặt hàng thành công", {
             position: "top-right",
             autoClose: 3000,
@@ -89,11 +90,19 @@ const ProductAddForm = () => {
           });
           navigate("/manage/product");
         } else {
-          toast.error("Thêm mặt hàng thất bại", {
-            position: "top-right",
-            autoClose: 3000,
-            style: { color: "red", backgroundColor: "#D7F1FD" },
-          });
+          if (res?.error?.message === "Request failed with status code 409") {
+            toast.error("Mặt hàng đã tồn tại", {
+              position: "top-right",
+              autoClose: 3000,
+              style: { color: "red", backgroundColor: "#D7F1FD" },
+            });
+          } else {
+            toast.error("Thêm mặt hàng thất bại", {
+              position: "top-right",
+              autoClose: 3000,
+              style: { color: "red", backgroundColor: "#D7F1FD" },
+            });
+          }
         }
         // navigate("/manage/discount");
       });
