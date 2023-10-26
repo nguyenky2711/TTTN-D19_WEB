@@ -60,7 +60,8 @@ const CartPage = () => {
             ></CartTable>
             <div className="cart-subTotal">
               <p>
-                Tạm tính: $<span>{subTotal && subTotal}</span>
+                Tạm tính:{" "}
+                <span>{subTotal && subTotal.toLocaleString()} VND</span>
               </p>
             </div>
             {cartDTO?.list?.length > 0 ? (

@@ -62,7 +62,8 @@ const ManageOrderDetail = () => {
             Giảm giá: $<span>{discountData && discountData?.data?.maxGet}</span>
           </p> */}
           <p>
-            Thực trả: $<span>{data && data?.orderDTO?.total}</span>
+            Thực trả:{" "}
+            <span>{data && data?.orderDTO?.total.toLocaleString()} VND</span>
           </p>
           <p>
             Phương thức thanh toán:{" "}

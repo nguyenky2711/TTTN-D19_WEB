@@ -122,6 +122,10 @@ const CartTable = ({
             <p className="cart_item-name">
               {row?.productDTO?.itemDTO?.data?.name}
             </p>
+            <p className="cart_item-name">
+              Kích thước:
+              <span> {row?.productDTO?.sizeDTO?.info_size}</span>
+            </p>
             <p className="cart_item-type">
               Loại sản phẩm:
               <span> {row?.productDTO?.itemDTO?.data?.type_id}</span>
@@ -144,9 +148,23 @@ const CartTable = ({
         const { row } = params;
         return (
           <div>
-            <p>
-              $ <span>{row?.productDTO?.priceDTO[0]?.price}</span>
-            </p>
+            {row?.productDTO?.priceDTO[0]?.discounted_price !==
+            row?.productDTO?.priceDTO[0]?.price ? (
+              <div className="flex-col">
+                <span className="text-lg font-bold text-color-second">
+                  {row?.productDTO?.priceDTO[0]?.discounted_price.toLocaleString()}{" "}
+                  VND
+                </span>
+                <span className="ml-2 line-through text-main">
+                  {row?.productDTO?.priceDTO[0]?.price.toLocaleString()} VND
+                </span>
+              </div>
+            ) : (
+              <p className="text-main">
+                {" "}
+                {row?.productDTO?.priceDTO[0]?.price.toLocaleString()} VND
+              </p>
+            )}
           </div>
         );
       },
@@ -221,8 +239,13 @@ const CartTable = ({
         return (
           <div>
             <p>
-              ${" "}
-              <span>{row.quantity * row?.productDTO?.priceDTO[0]?.price}</span>
+              {" "}
+              <span>
+                {(
+                  row.quantity * row?.productDTO?.priceDTO[0]?.discounted_price
+                ).toLocaleString()}{" "}
+                VND
+              </span>
             </p>
           </div>
         );

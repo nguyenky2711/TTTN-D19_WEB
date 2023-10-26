@@ -117,6 +117,7 @@ const ManageStatistic = () => {
                 value={selectedProduct}
                 label="Sản phẩm"
                 onChange={handleSelectedProduct}
+                defaultValue="Tất cả"
               >
                 <MenuItem value="Tất cả">Tất cả</MenuItem>
                 {productList.map((item) => {
@@ -175,7 +176,8 @@ const ManageStatistic = () => {
             <div>
               <h4>Doanh thu ngày {dateStatictic.date}</h4>
               <p>
-                Tổng thu: $ <span>{dateStatictic.total}</span>
+                Tổng thu:{" "}
+                <span>{dateStatictic.total.toLocaleString()} VND</span>
               </p>
             </div>
           ) : selectedTime == 2 && monthStatictic != undefined ? (

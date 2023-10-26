@@ -9,9 +9,6 @@ const BodyPage = ({ productList }) => {
   // const { productList } = useSelector((state) => state?.product?.data);
   return (
     <div className="product_container">
-      <div className="product_title">
-        <h1>Danh sách các sản phẩm</h1>
-      </div>
       <div className="product_card-List">
         {productList?.map((product) => {
           return <ProductCard data={product}></ProductCard>;

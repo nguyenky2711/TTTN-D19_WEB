@@ -48,7 +48,11 @@ const ProductAddForm = () => {
     const firstFile = info.fileList[0];
     const secondFile = info.fileList[1];
     if (info?.fileList?.length < fileList.length) {
-      setFileList([firstFile]);
+      if (info?.fileList?.length === 0) {
+        setFileList();
+      } else {
+        setFileList([firstFile]);
+      }
     } else {
       setFileList(info.fileList);
     }
@@ -115,7 +119,6 @@ const ProductAddForm = () => {
       return file.thumbUrl;
     });
     const lastData = new FormData();
-    console.log(fileList);
     lastData.append("name", values.name);
     lastData.append("description", values.description);
     lastData.append("guide", values.guide);
@@ -299,7 +302,7 @@ const ProductAddForm = () => {
               <Upload
                 listType="picture"
                 beforeUpload={beforeUpload}
-                fileList={fileList}
+                fileList={fileList ? fileList : null}
                 onRemove={handleRemove} // Handle file removal
                 onChange={handleUploadChange} // Handle file addition to fileList
               >
@@ -316,7 +319,7 @@ const ProductAddForm = () => {
               <Button
                 type="submit"
                 htmlType="submit"
-                onClick={() => !hadErrors && setOpenModal(true)}
+                // onClick={() => !hadErrors && setOpenModal(true)}
               >
                 Hoàn thành
               </Button>

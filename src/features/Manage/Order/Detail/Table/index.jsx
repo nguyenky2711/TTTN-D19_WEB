@@ -145,9 +145,13 @@ const OrderDetailManagerTable = ({
       height: 70,
       renderCell: (params) => {
         const { row } = params;
+        console.log(row);
         return (
           <div className="product_item-stock">
-            <p>{row?.productDTO?.priceDTO[0]?.discounted_price}</p>
+            <p>
+              {row?.productDTO?.priceDTO[0]?.discounted_price.toLocaleString()}{" "}
+              VND
+            </p>
           </div>
         );
       },
@@ -181,7 +185,7 @@ const OrderDetailManagerTable = ({
         const { row } = params;
         return (
           <div className="product_item-stock">
-            <p>{row?.sum}</p>
+            <p>{row?.sum.toLocaleString()} VND</p>
           </div>
         );
       },

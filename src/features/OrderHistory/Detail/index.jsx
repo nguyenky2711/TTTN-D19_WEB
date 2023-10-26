@@ -41,13 +41,28 @@ const UserOrderDetail = () => {
   useEffect(() => {
     if (data != undefined) {
       dispatch(getPaymentByIDThunk(data.orderDTO.payment_id)).then((res) => {
+        console.log(res);
         setPaymentData(res?.payload);
-      });
-      dispatch(getDiscountByIDThunk(data.orderDTO.discount_id)).then((res) => {
-        setDiscountData(res?.payload);
       });
     }
   }, [data]);
+  const calculateDiscountPrice = () => {
+    let discountedPrice = 0;
+
+    // Loop through the items in the order_detailDTO array
+    data.order_detailDTO.forEach((item) => {
+      if (
+        item.productDTO.priceDTO[0].price !==
+        item.productDTO.priceDTO[0].discounted_price
+      ) {
+        discountedPrice +=
+          item.productDTO.priceDTO[0].discounted_price * item.quantity;
+      }
+    });
+
+    return discountedPrice;
+  };
+  console.log(paymentData);
   return (
     <div className="container">
       <div className="orderHistory_container">
@@ -60,18 +75,22 @@ const UserOrderDetail = () => {
             </span>
           </p>
           <p>
-            Thực tổng: $
+            Thực tổng:{" "}
             <span>
               {data &&
-                discountData &&
-                data?.orderDTO?.total + discountData?.data?.maxGet}
+                (
+                  data?.orderDTO?.total + calculateDiscountPrice()
+                ).toLocaleString()}{" "}
+              VND
             </span>
           </p>
           <p>
-            Giảm giá: $<span>{discountData && discountData?.data?.maxGet}</span>
+            Giảm giá:{" "}
+            <span>{data && calculateDiscountPrice().toLocaleString()} VND</span>
           </p>
           <p>
-            Thực trả: $<span>{data && data?.orderDTO?.total}</span>
+            Thực trả:{" "}
+            <span>{data && data?.orderDTO?.total.toLocaleString()} VND</span>
           </p>
           <p>
             Phương thức thanh toán:{" "}

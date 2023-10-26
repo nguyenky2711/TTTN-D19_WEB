@@ -28,6 +28,8 @@ import ImportPage from './features/ImportItem';
 import ProductUpdateForm from './features/Manage/Product/Update';
 import ManageOrderDetail from './features/Manage/Order/Detail';
 import UserOrderDetail from './features/OrderHistory/Detail';
+import Contact from './features/Contact';
+import Products from './features/Products';
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
         <Route path='/cart/:userId' Component={CartPage} />
         <Route path='/order' Component={OrderPage} />
         <Route path='/order/user' Component={OrderHistory} />
+        <Route path='/contact' Component={Contact} />
+        <Route path='/products' Component={Products} />
         <Route path='/order/user/:orderId' Component={UserOrderDetail} />
 
         <Route path='/manage/product' Component={ManageProduct} />

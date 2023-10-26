@@ -148,7 +148,10 @@ const UserOrderDetailTable = ({
         const { row } = params;
         return (
           <div className="product_item-stock">
-            <p>{row?.productDTO?.priceDTO[0]?.price}</p>
+            <p>
+              {row?.productDTO?.priceDTO[0]?.discounted_price.toLocaleString()}{" "}
+              VND
+            </p>
           </div>
         );
       },
@@ -182,7 +185,7 @@ const UserOrderDetailTable = ({
         const { row } = params;
         return (
           <div className="product_item-stock">
-            <p>{row?.sum}</p>
+            <p>{row?.sum.toLocaleString()} VND</p>
           </div>
         );
       },

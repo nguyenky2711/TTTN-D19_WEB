@@ -18,6 +18,8 @@ import {
   getPaymentsThunk,
 } from "../../store/action/order";
 import { getCartThunk } from "../../store/action/cart";
+import { schema } from "./validate";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const OrderPage = () => {
   const dispatch = useDispatch();
@@ -30,7 +32,7 @@ const OrderPage = () => {
     formState: { errors },
   } = useForm({
     mode: "all",
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
   });
 
   useEffect(() => {
@@ -38,45 +40,23 @@ const OrderPage = () => {
       console.log(res?.payload?.data);
       setPayment(res?.payload?.data);
     });
-    dispatch(getDiscountsThunk()).then((res) => {
-      console.log(res?.payload?.data);
-      setDiscount(res?.payload?.data);
-    });
+
     dispatch(getCartThunk([0, 100])).then((res) => {
       setCartDTO(res?.payload?.cartDTO);
     });
   }, []);
   const [cartDTO, setCartDTO] = useState();
-  const [discount, setDiscount] = useState();
   const [payment, setPayment] = useState();
 
   // const { cartDTO } = useSelector((state) => state.cart.data);
-  const [selectedDiscount, setSelectedDiscount] = useState("");
-  const [selectedPayment, setSelectedPayment] = useState("");
+  const [selectedPayment, setSelectedPayment] = useState(1);
   // const { discount, payment } = useSelector((state) => state.order);
-  const handleDiscount = (event) => {
-    if (discount != undefined) {
-      const temp = discount.find((item) => item.id === event.target.value);
-      if (temp.condition > cartDTO.subTotal) {
-        toast.error("Giá trị đơn hàng không đủ để áp dụng khuyến mãi này", {
-          position: "top-right",
-          autoClose: 3000,
-          style: { color: "red", backgroundColor: "#DEF2ED" },
-        });
-      } else {
-        setSelectedDiscount(event.target.value);
-      }
-    }
-  };
+
   const handlePayment = (event) => {
     setSelectedPayment(event.target.value);
   };
   const calculateTotal = () => {
-    if (discount != undefined) {
-      const temp = discount.find((item) => item.id === selectedDiscount);
-      if (temp == undefined) return cartDTO?.subTotal;
-      return cartDTO?.subTotal - temp?.maxGet;
-    }
+    return cartDTO?.subTotal.toLocaleString();
   };
   const formRef = useRef(null);
 
@@ -88,6 +68,7 @@ const OrderPage = () => {
         product_id: item.productDTO.id,
         quantity: item.quantity,
         sum: item.productDTO.priceDTO[0].price * item.quantity,
+        price_id: item.productDTO.priceDTO[0].id,
       };
     });
     // Handle form submission here using the values in formData
@@ -98,10 +79,12 @@ const OrderPage = () => {
     sendData.append("receiver_name", receiverName);
     sendData.append("receiver_address", receiverAddress);
     sendData.append("receiver_phone", receiverPhone);
-    sendData.append("payment_id", parseInt(selectedPayment));
-    sendData.append("discount_id", parseInt(selectedDiscount));
+    sendData.append(
+      "payment_id",
+      selectedPayment !== "" ? parseInt(selectedPayment) : 1
+    );
     sendData.append("order_detail", JSON.stringify(order_detail));
-    sendData.append("total", Number(calculateTotal()));
+    sendData.append("total", Number(cartDTO?.subTotal));
     console.log("sendData:", Object.fromEntries(sendData));
     dispatch(creatOrderThunk(sendData)).then((res) => {
       dispatch(getCartThunk([0, 100]));
@@ -124,6 +107,7 @@ const OrderPage = () => {
     });
     // Perform any additional actions you need
   };
+  console.log(payment);
   return (
     <div className="container">
       <div className="order_container">
@@ -139,7 +123,9 @@ const OrderPage = () => {
                 type="text"
                 placeholder="Họ và tên"
                 defaultValue={data?.userDTO?.name}
-              ></CustomInput>
+              >
+                {errors.receiver_name?.message}
+              </CustomInput>
               <CustomInput
                 label="Địa chỉ"
                 id="receiver_address"
@@ -148,7 +134,9 @@ const OrderPage = () => {
                 type="text"
                 placeholder="Địa chỉ"
                 defaultValue={data?.userDTO?.address}
-              ></CustomInput>
+              >
+                {errors.receiver_address?.message}
+              </CustomInput>
               <CustomInput
                 label="Số điện thoại"
                 id="receiver_phone"
@@ -157,7 +145,9 @@ const OrderPage = () => {
                 type="text"
                 placeholder="Số điện thoại"
                 defaultValue={data?.userDTO?.phone}
-              ></CustomInput>
+              >
+                {errors.receiver_phone?.message}
+              </CustomInput>
 
               {/* <Button name={"Xác nhận"} type="submit"></Button> */}
             </form>
@@ -178,7 +168,10 @@ const OrderPage = () => {
                         />
                       </div>
                       <div className="order_right-content">
-                        <p>{value?.productDTO?.itemDTO?.data?.name}</p>
+                        <p>
+                          {value?.productDTO?.itemDTO?.data?.name} -{" "}
+                          {value?.productDTO?.sizeDTO?.info_size}
+                        </p>
                         <span>
                           Số lượng: <span>{value.quantity}</span>
                         </span>
@@ -186,10 +179,13 @@ const OrderPage = () => {
                     </div>
                     <div className="order_right-itemTotal">
                       <p>
-                        ${" "}
+                        {" "}
                         <span>
-                          {value.quantity *
-                            value.productDTO?.priceDTO[0]?.price}
+                          {(
+                            value.quantity *
+                            value.productDTO?.priceDTO[0]?.price
+                          ).toLocaleString()}
+                          VND
                         </span>
                       </p>
                     </div>
@@ -204,7 +200,7 @@ const OrderPage = () => {
             <div className="order_right-subTotal">
               <h4>Tạm tính</h4>
               <p>
-                $ <span>{cartDTO.subTotal}</span>
+                <span>{cartDTO.subTotal.toLocaleString()}VND</span>
               </p>
             </div>
           ) : (
@@ -212,35 +208,6 @@ const OrderPage = () => {
           )}
 
           <div className="order_right-selection">
-            {discount != undefined ? (
-              <div className="order_right-discount">
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                  <InputLabel id="demo-simple-select-helper-label">
-                    Mã khuyến mãi
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-helper-label"
-                    id="demo-simple-select-helper"
-                    value={selectedDiscount}
-                    label="Mã khuyến mãi"
-                    onChange={handleDiscount}
-                  >
-                    <MenuItem value="">Chọn mã khuyến mãi</MenuItem>
-                    {discount.map((item) => {
-                      return (
-                        <MenuItem value={item.id}>
-                          Giảm $<span>{`${item.maxGet}\u00a0`}</span> cho hoá
-                          đơn từ $<span>{item.condition}</span>
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                  {/* <FormHelperText>With label + helper text</FormHelperText> */}
-                </FormControl>
-              </div>
-            ) : (
-              <></>
-            )}
             {payment != undefined ? (
               <div className="order_right-payment">
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -272,7 +239,7 @@ const OrderPage = () => {
           <div className="order_right-total">
             <h4>Tổng tiền</h4>
             <p>
-              $ <span>{calculateTotal()}</span>
+              <span>{cartDTO?.subTotal.toLocaleString()} VND</span>
             </p>
           </div>
         </div>

@@ -1,186 +1,184 @@
 .container {
-    padding: 40px 100px;
-    display: block;
-    .order_container {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        .order_left {
-            flex-basis: 35%;
-            > h4 {
-                font-size: 22px;
-                margin-bottom: 20px;
+  display: block;
+  margin: 0px auto;
+  .order_container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .order_left {
+      flex-basis: 35%;
+      > h4 {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+      div {
+        form {
+          .custom-input {
+            margin-bottom: 25px;
+            label {
+              display: inline-block;
+              padding-bottom: 10px;
             }
             div {
-                form {
-                    .custom-input {
-                        margin-bottom: 25px;
-                        label {
-                            display: inline-block;
-                            padding-bottom: 10px;
-                        }
-                        div {
-                            input {
-                                width: 100%;
-                                box-sizing: border-box;
-                            }
-                        }
-                    }
-                }
+              input {
+                width: 100%;
+                box-sizing: border-box;
+              }
             }
+          }
         }
-        .order_right {
-            flex-basis: 60%;
-            padding-left: 50px;
-            box-sizing: border-box;
-            border-left: 1px solid #bfbfbf ;
-            // border: 1px solid #bfbfbf;
-            // background-color: #f6f6f6;
-            // border-radius: 6px;
-            > h4 {
-                font-size: 22px;
-                margin-bottom: 20px;
-            }
-            .order_right-listItem {
-                height: 300px;
-                overflow: auto;
-                margin-bottom: 15px;
-                &::-webkit-scrollbar {
-                    display: none;
-                    width: 0.5em;
-                }
-                  
-                &::-webkit-scrollbar-thumb {
-                    background-color: #888;
-                }
-                  
-                  /* Display the scrollbar on hover */
-                &:hover::-webkit-scrollbar-thumb {
-                    background-color: #555;
-                }
-                &:hover {
-                    &::-webkit-scrollbar {
-                        display: block;
-                    }
-                    .order_right-itemTotal {
-                        margin-right: 15px;
-
-                    }
-                }
-                .order_right-item {
-                    // height: 70px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 12px;
-                    .order_right-itemContent {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        .order_right-itemImg {
-                            border-radius: 8px;
-                            border: 1px rgba(0,0,0,0.1) solid;
-                            padding: 0px 8px;    
-                            height: 95px;
-                            img {
-                                height: 95px;
-                                width: 80px;
-                            }
-                        }
-                        .order_right-content {
-                            margin-left: 30px;
-                            p {
-                                font-weight: 600;
-                                font-size: 18px;
-                            }
-                        }
-                    }
-                    .order_right-itemTotal {
-                        p {
-                            font-weight: 600;
-                            font-size: 18px;
-                        }
-                    }
-                }   
-            }
-            .order_right-subTotal {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                border-bottom: 1px solid rgba(175,175,175,0.34);
-                border-top: 1px solid rgba(175,175,175,0.34);
-                padding: 15px 0px;
-                // margin-bottom: 25px;
-                h4 {
-                    
-                }
-                p {
-                    font-weight: 600;
-                    font-size: 18px;
-                }
-            }
-            .order_right-selection {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                border-bottom: 1px solid rgba(175,175,175,0.34);
-                padding: 25px 0px 15px 0px;
-                .order_right-discount {
-                    flex-basis: 45%;
-                    .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
-                        color: #1eb853;
-                    }
-                    .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-                        border-color: #1eb853;
-                    }
-                }
-                .order_right-payment {
-                    flex-basis: 50%;
-
-                    .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
-                        color: #1eb853;
-
-                    }
-                    .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-                        border-color: #1eb853;
-
-                    }
-                }
-                .css-1869usk-MuiFormControl-root {
-                    width: 100%;
-                    margin: 0px;
-                }
-            }
-            
-            .order_right-total {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                // border-bottom: 1px solid rgba(175,175,175,0.34);
-                padding: 15px 0px;
-
-                h4 {
-                    font-size: 20px;
-                }
-                p {
-                    font-weight: 600;
-                    font-size: 18px;
-                }
-            }
-        }
+      }
     }
-    .order_submit {
+    .order_right {
+      flex-basis: 60%;
+      padding-left: 50px;
+      box-sizing: border-box;
+      border-left: 1px solid #bfbfbf;
+      // border: 1px solid #bfbfbf;
+      // background-color: #f6f6f6;
+      // border-radius: 6px;
+      > h4 {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+      .order_right-listItem {
+        height: 300px;
+        overflow: auto;
+        margin-bottom: 15px;
+        &::-webkit-scrollbar {
+          display: none;
+          width: 0.5em;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: #888;
+        }
+
+        /* Display the scrollbar on hover */
+        &:hover::-webkit-scrollbar-thumb {
+          background-color: #555;
+        }
+        &:hover {
+          &::-webkit-scrollbar {
+            display: block;
+          }
+          .order_right-itemTotal {
+            margin-right: 15px;
+          }
+        }
+        .order_right-item {
+          // height: 70px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+          .order_right-itemContent {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .order_right-itemImg {
+              border-radius: 8px;
+              border: 1px rgba(0, 0, 0, 0.1) solid;
+              padding: 0px 8px;
+              height: 95px;
+              img {
+                height: 95px;
+                width: 80px;
+              }
+            }
+            .order_right-content {
+              margin-left: 30px;
+              p {
+                font-weight: 600;
+                font-size: 18px;
+              }
+            }
+          }
+          .order_right-itemTotal {
+            p {
+              font-weight: 600;
+              font-size: 18px;
+            }
+          }
+        }
+      }
+      .order_right-subTotal {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        justify-content: center;
-        margin-top: 30px;
-        button {
-            padding: 14px 22px;
-            color: white;
-            background-color: #1eb853;
-            border: none;
-            border-radius: 6px;
-            font-size: 20px;
+        border-bottom: 1px solid rgba(175, 175, 175, 0.34);
+        border-top: 1px solid rgba(175, 175, 175, 0.34);
+        padding: 15px 0px;
+        // margin-bottom: 25px;
+        h4 {
         }
+        p {
+          font-weight: 600;
+          font-size: 18px;
+        }
+      }
+      .order_right-selection {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(175, 175, 175, 0.34);
+        padding: 25px 0px 15px 0px;
+        .order_right-discount {
+          flex-basis: 45%;
+          .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+            color: #1eb853;
+          }
+          .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root.Mui-focused
+            .MuiOutlinedInput-notchedOutline {
+            border-color: #1eb853;
+          }
+        }
+        .order_right-payment {
+          flex-basis: 50%;
+
+          .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+            color: #1eb853;
+          }
+          .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root.Mui-focused
+            .MuiOutlinedInput-notchedOutline {
+            border-color: #1eb853;
+          }
+        }
+        .css-1869usk-MuiFormControl-root {
+          width: 100%;
+          margin: 0px;
+        }
+      }
+
+      .order_right-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        // border-bottom: 1px solid rgba(175,175,175,0.34);
+        padding: 15px 0px;
+
+        h4 {
+          font-size: 20px;
+        }
+        p {
+          font-weight: 600;
+          font-size: 18px;
+        }
+      }
     }
+  }
+  .order_submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    button {
+      padding: 14px 22px;
+      color: white;
+      background-color: #1eb853;
+      border: none;
+      border-radius: 6px;
+      font-size: 20px;
+    }
+  }
 }

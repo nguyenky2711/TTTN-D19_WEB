@@ -348,12 +348,10 @@ const Table = ({
       height: 70,
       renderCell: (params) => {
         const { row } = params;
+        console.log(row);
         return (
           <div className="product_item-image">
-            <img
-              src={`http://localhost:4000/uploads/${row?.itemDTO?.imageDTO[0]?.name}`}
-              alt=""
-            />
+            <img src={row?.itemDTO?.imageDTO[0]?.url} alt="" />
           </div>
         );
       },
@@ -404,7 +402,7 @@ const Table = ({
         const { row } = params;
         return (
           <div className="product_item-stock">
-            <p>{row?.priceDTO[0]?.price}</p>
+            <p>{row?.priceDTO[0]?.price.toLocaleString()} VND</p>
           </div>
         );
       },
@@ -430,7 +428,7 @@ const Table = ({
             </div>
             <div
               onClick={() =>
-                handleOpenModalPrice(row.productId, row.priceDTO[0].price)
+                handleOpenModalPrice(row.productId, row.priceDTO[0])
               }
             >
               <EditIcon />

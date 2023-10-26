@@ -24,15 +24,19 @@ const ProductDetailPage = () => {
   const [productDetail, setProductDetail] = useState([]);
   const [selectProduct, setSelectProduct] = useState({});
   const [price, setPrice] = useState(0);
+  const [priceDiscount, setPriceDiscount] = useState(0);
   const [stock, setStock] = useState(0);
   const [selectImage, setSelectImage] = useState("");
   const [clickedId, setClickedId] = useState(null);
   useEffect(() => {
     dispatch(getProductByItemIdThunk(id)).then((res) => {
-      console.log(res);
       setProductDetail(res?.payload?.productDTO);
       setSelectProduct(res?.payload?.productDTO[0]);
       setPrice(res?.payload?.productDTO[0]?.priceDTO[0].price);
+      setPriceDiscount(
+        res?.payload?.productDTO[0]?.priceDTO[0].discounted_price
+      );
+
       setStock(res?.payload?.productDTO[0]?.stockDTO[0].stock);
       setClickedId(res?.payload?.productDTO[0]?.id);
       setSelectImage(
@@ -74,31 +78,44 @@ const ProductDetailPage = () => {
     const sendData = new FormData();
     sendData.append("product_id", selectProduct?.id);
     sendData.append("quantity", cartQuantity);
-    dispatch(addProductToCartThunk(sendData)).then((res) => {
-      dispatch(getCartThunk()).then((res) => {});
-      if (res?.error?.message == "Request failed with status code 401") {
-        toast.error("Vui lòng đăng nhập để sử dụng chức năng này", {
-          position: "top-right",
-          autoClose: 3000,
-          style: { color: "red", backgroundColor: "#D7F1FD" },
-        });
-      } else if (res?.payload?.message == "Product already exists in cart.") {
-        toast.error("Sản phẩm đã có trong giỏ hàng", {
-          position: "top-right",
-          autoClose: 3000,
-          style: { color: "red", backgroundColor: "#D7F1FD" },
-        });
-      } else {
-        toast.success("Thêm sản phẩm vào giỏ hàng thành công", {
-          position: "top-right",
-          autoClose: 3000,
-          style: { color: "green", backgroundColor: "#D7F1FD" },
-        });
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 4000);
-      }
-    });
+    if (selectProduct?.stockDTO[0]?.stock === 0) {
+      toast.error("Sản phẩm hiện đang hết hàng", {
+        position: "top-right",
+        autoClose: 3000,
+        style: { color: "red", backgroundColor: "#D7F1FD" },
+      });
+    } else {
+      dispatch(addProductToCartThunk(sendData)).then((res) => {
+        dispatch(getCartThunk()).then((res) => {});
+        if (
+          res?.error?.message === "Request failed with status code 401" ||
+          res?.payload?.message === "Request failed with status code 401"
+        ) {
+          toast.error("Vui lòng đăng nhập để sử dụng chức năng này", {
+            position: "top-right",
+            autoClose: 3000,
+            style: { color: "red", backgroundColor: "#D7F1FD" },
+          });
+        } else if (
+          res?.payload?.message === "Product already exists in cart."
+        ) {
+          toast.error("Sản phẩm đã có trong giỏ hàng", {
+            position: "top-right",
+            autoClose: 3000,
+            style: { color: "red", backgroundColor: "#D7F1FD" },
+          });
+        } else {
+          toast.success("Thêm sản phẩm vào giỏ hàng thành công", {
+            position: "top-right",
+            autoClose: 3000,
+            style: { color: "green", backgroundColor: "#D7F1FD" },
+          });
+          // setTimeout(() => {
+          //   window.location.reload();
+          // }, 4000);
+        }
+      });
+    }
   };
   const handleClickImage = (event) => {
     const srcValue = event.target.getAttribute("src");
@@ -109,6 +126,7 @@ const ProductDetailPage = () => {
       if (productDetail[index].id == value) {
         setStock(productDetail[index].stockDTO[0].stock);
         setPrice(productDetail[index].priceDTO[0].price);
+        setPriceDiscount(productDetail[index].priceDTO[0].discounted_price);
         setSelectProduct(productDetail[index]);
         setClickedId(value);
         setCartQuantity(1);
@@ -139,9 +157,21 @@ const ProductDetailPage = () => {
             <h4>{selectProduct?.itemDTO?.data?.name}</h4>
           </div>
           <div className="product_detail-price">
-            <p>
+            {/* <p>
               $ <span>{price}</span>
-            </p>
+            </p> */}
+            {priceDiscount !== price ? (
+              <div>
+                <span className="text-lg font-bold text-color-second">
+                  {priceDiscount.toLocaleString()} VND
+                </span>
+                <span className="ml-2 line-through text-main">
+                  {price.toLocaleString()} VND
+                </span>
+              </div>
+            ) : (
+              <p className="text-main">{price.toLocaleString()} VND</p>
+            )}
           </div>
           <div className="product_detail-selection">
             <h4>Kích thước</h4>

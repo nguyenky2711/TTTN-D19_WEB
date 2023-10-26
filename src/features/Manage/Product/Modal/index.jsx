@@ -6,9 +6,9 @@ import { useForm } from "react-hook-form";
 import CustomInput from "../../../../components/CustomInput";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import { updatePriceThunk } from "../../../../store/action/product";
 import { schema } from "./validate";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { updatePriceThunk } from "../../../../store/action/product";
 const ModalPrice = ({
   open,
   onClose,
@@ -54,7 +54,7 @@ const ModalPrice = ({
     pb: 3,
   };
   const handleOldMoneyValue = (oldPrice) => {
-    let numericValue = String(oldPrice).replace(/\D/g, "");
+    let numericValue = String(oldPrice?.price).replace(/\D/g, "");
     const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return formattedValue;
   };
@@ -72,6 +72,7 @@ const ModalPrice = ({
   const handleUpdatePrice = (data) => {
     const sendData = new FormData();
     sendData.append("price", data.new_price);
+    sendData.append("price_id", oldPrice.id);
     dispatch(updatePriceThunk([productId, sendData]))
       .then((res) => {
         if (res?.payload?.message == "Updated price successfully") {

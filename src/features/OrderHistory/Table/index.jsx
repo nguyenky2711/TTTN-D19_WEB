@@ -152,7 +152,7 @@ const OrderHistoryTable = ({
         const { row } = params;
         return (
           <div className="orderHistory_item-total">
-            <p>{row.total}</p>
+            <p>{row.total.toLocaleString()} VND</p>
           </div>
         );
       },

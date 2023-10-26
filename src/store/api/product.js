@@ -60,6 +60,7 @@ const product = {
         return internshipTransport.put(url, data[1]);
     },
     updatePrice: (data) => {
+        console.log(data)
         const url = `/api/products/price/${data[0]}`;
         return internshipTransport.put(url, data[1]);
     },
@@ -71,7 +72,7 @@ const product = {
         const url = `/api/products/discount`;
         return internshipTransport.post(url, data);
     },
-    updatePrice: (data) => {
+    updateDiscount: (data) => {
         const url = `/api/products/discount/${data[0]}`;
         return internshipTransport.put(url, data[1]);
     },

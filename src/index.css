@@ -1,3 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  margin: 0;
+  padding: 0;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -14,12 +21,100 @@ code {
 a {
   text-decoration: none;
 }
-* {
-  margin: 0;
-  padding: 0;
-}
 .manage__pagination {
   margin-top: 15px;
   display: flex;
   justify-content: center;
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+.active{
+    @apply after:lg:bg-color-second after:lg:w-full after:lg:absolute text-gray-800 after:lg:h-0.5 after:lg:bottom-0 after:lg:left-0
+}
+.ndv__toggle-menu{
+    @apply top-12 text-center absolute w-full bg-white animate-slideDown block shadow-menu_shadow lg:relative lg:top-0 lg:shadow-none
+}
+.ndv__input{
+    @apply w-full px-4 py-3 border border-solid border-slate-500 focus:outline-black rounded;
+}
+.ndv__label{
+    @apply text-sm absolute top-[-10px] left-2 text-black bg-white px-2
+}
+.ndv__button{
+    @apply w-full text-white font-medium text-lg sm:text-base h-[58px] rounded bg-button_bg shadow-button_shadow focus:outline-none transition-all duration-300 ease-in-out bg-button_size hover:bg-button_hover
+}
+/* custom */
+.ndv-top-menu-item{
+    @apply cursor-pointer py-4 tracking-wider lg:py-2 hover:text-gray-800 relative after:lg:absolute after:lg:bg-slate-800 after:lg:h-0.5 after:lg:w-0 
+    after:lg:bottom-0 after:lg:left-0 hover:after:lg:w-full after:lg:transition-all after:lg:ease-in-out after:lg:duration-300 after:lg:bg-light-coffee;
+}
+.ndv-icon{
+    @apply w-5 h-5 inline-block
+}
+.ndv-badge-circle{
+    @apply rounded-full px-1.5  text-center text-xs
+}
+.ndv-menu-dropdown{
+    @apply block absolute lg:relative bg-white w-full right-0 top-14 text-center z-20 animate-slideDown
+}
+.ndv-subheadline-decor{
+    @apply text-center text-gray-500 text-xs font-bold flex justify-center items-center ;
+}
+.ndv-name-product{
+    @apply text-[#363740] text-lg font-normal mb-3
+}
+.ndv-button{
+    @apply w-[80%] mx-auto px-[24px] py-[18px] bottom-5 text-xs tracking-widest font-bold
+}
+.ndv__item-overlay{
+    @apply after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-img__overplay
+}
+.ndv__img{
+    @apply object-cover object-center
+}
+.ndv__btn-second{
+    @apply px-3 py-2 text-sm font-bold text-light-coffee hover:text-color-second hover:outline-1 hover:outline hover:outline-light-coffee
+}
+.wrapper{
+    @apply w-full max-w-screen-2xl my-100px m-auto  px-16 md:px-32 lg:px-64 sm:px-0 sm:my-[50px]
+}
+.ndv__title{
+    @apply my-20 text-xl sm:text-center sm:my-10
+}
+#root{
+    height: 100vh;
+    perspective: 2px;
+}
+body{
+    font-family: 'Karla', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+  }
+  html *::-webkit-scrollbar {
+      border-radius: 0;
+      width: 8px;
+  }
+  html *::-webkit-scrollbar {
+      border-radius: 0;
+      width: 8px;
+  }
+  html *::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(22, 24, 35, .06);
+  }
+  html *::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(22, 24, 35, .06);
+  }
+  html *::-webkit-scrollbar-track {
+      border-radius: 0;
+      background-color: rgba(0, 0, 0, 0);
+  }
+  html *::-webkit-scrollbar-track {
+      border-radius: 0;
+      background-color: rgba(0, 0, 0, 0);
+  }

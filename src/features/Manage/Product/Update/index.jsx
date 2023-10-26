@@ -63,6 +63,7 @@ const ProductUpdateForm = () => {
   };
 
   const handleUploadChange = async (info) => {
+    console.log(info);
     if (info.file.status === "done") {
       // File upload was successful
       message.success(`${info.file.name} file uploaded successfully.`);
@@ -70,10 +71,13 @@ const ProductUpdateForm = () => {
       // File upload failed
       message.error(`${info.file.name} file upload failed.`);
     }
-    const firstFile = info.fileList[0];
-    const secondFile = info.fileList[1];
+    const firstFile = info?.fileList[0];
+    const secondFile = info?.fileList[1];
     if (info?.fileList?.length < fileList.length) {
-      setFileList([firstFile]);
+      if (info?.fileList?.length === 0) {
+      } else {
+        setFileList([firstFile]);
+      }
     } else {
       setFileList(info.fileList);
     }
@@ -131,7 +135,6 @@ const ProductUpdateForm = () => {
       return file.thumbUrl;
     });
     const lastData = new FormData();
-    console.log(fileList);
     lastData.append("name", values.name);
     lastData.append("description", values.description);
     lastData.append("guide", values.guide);
@@ -368,7 +371,7 @@ const ProductUpdateForm = () => {
                 <Button
                   type="submit"
                   htmlType="submit"
-                  onClick={() => !hadErrors && setOpenModal(true)}
+                  // onClick={() => !hadErrors && setOpenModal(true)}
                 >
                   Hoàn thành
                 </Button>
@@ -388,8 +391,8 @@ const ProductUpdateForm = () => {
               open={openModal}
               onCancel={handleModalCancel}
               onOk={() => handleOkModal(sendData)}
-              header={`Hoàn thành thêm mặt hàng`}
-              title={`Bạn có muốn thêm mặt hàng này vào danh sách ?`}
+              header={`Hoàn thành cập nhật mặt hàng mặt hàng`}
+              title={`Bạn có muốn cập nhật mặt hàng này ?`}
             ></ConfirmModalAntd>
           </Form>
         )}
