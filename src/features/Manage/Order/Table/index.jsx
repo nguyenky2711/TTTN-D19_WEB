@@ -160,7 +160,7 @@ const OrderManagerTable = ({
         const { row } = params;
         return (
           <div className="orderHistory_item-total">
-            <p>$ {row.total}</p>
+            <p>{row.total}</p>
           </div>
         );
       },

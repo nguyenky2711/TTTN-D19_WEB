@@ -186,7 +186,7 @@ const OrderPage = () => {
                     </div>
                     <div className="order_right-itemTotal">
                       <p>
-                        ${" "}
+                        {" "}
                         <span>
                           {value.quantity *
                             value.productDTO?.priceDTO[0]?.price}VND
@@ -204,7 +204,7 @@ const OrderPage = () => {
             <div className="order_right-subTotal">
               <h4>Tạm tính</h4>
               <p>
-                $ <span>{cartDTO.subTotal}VND</span>
+                <span>{cartDTO.subTotal}VND</span>
               </p>
             </div>
           ) : (
@@ -212,35 +212,7 @@ const OrderPage = () => {
           )}
 
           <div className="order_right-selection">
-            {discount != undefined ? (
-              <div className="order_right-discount">
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                  <InputLabel id="demo-simple-select-helper-label">
-                    Mã khuyến mãi
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-helper-label"
-                    id="demo-simple-select-helper"
-                    value={selectedDiscount}
-                    label="Mã khuyến mãi"
-                    onChange={handleDiscount}
-                  >
-                    <MenuItem value="">Chọn mã khuyến mãi</MenuItem>
-                    {discount.map((item) => {
-                      return (
-                        <MenuItem value={item.id}>
-                          Giảm $<span>{`${item.maxGet}\u00a0`}</span> cho hoá
-                          đơn từ $<span>{item.condition}</span>
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                  {/* <FormHelperText>With label + helper text</FormHelperText> */}
-                </FormControl>
-              </div>
-            ) : (
-              <></>
-            )}
+            
             {payment != undefined ? (
               <div className="order_right-payment">
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -272,7 +244,7 @@ const OrderPage = () => {
           <div className="order_right-total">
             <h4>Tổng tiền</h4>
             <p>
-              $ <span>{calculateTotal()}</span>
+              <span>{calculateTotal()}</span>
             </p>
           </div>
         </div>

@@ -122,7 +122,7 @@ const Table = ({
         return (
           <div>
             <p>
-              $ <span>{row?.productDTO?.priceDTO[0]?.price}</span>
+              <span>{row?.productDTO?.priceDTO[0]?.price}</span>
             </p>
           </div>
         );

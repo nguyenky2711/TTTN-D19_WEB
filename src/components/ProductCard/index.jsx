@@ -73,9 +73,9 @@ const ProductCard = ({ data }) => {
       <p className="ndv-name-product">{data[0]?.itemDTO?.data?.name}</p>
       {
         data.sale ? (<div>
-          <span className="text-lg font-bold text-color-second">$ {data.priceOnSale} VND</span>
-          <span className="ml-2 line-through text-main">$ {data[0]?.priceDTO[0]?.price} VND</span>
-        </div>) : (<p className="text-main">$ {data[0]?.priceDTO[0]?.price} VND</p>)
+          <span className="text-lg font-bold text-color-second">{data.priceOnSale} VND</span>
+          <span className="ml-2 line-through text-main">{data[0]?.priceDTO[0]?.price} VND</span>
+        </div>) : (<p className="text-main">{data[0]?.priceDTO[0]?.price} VND</p>)
       }
 
     </div>

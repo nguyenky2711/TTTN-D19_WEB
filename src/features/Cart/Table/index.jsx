@@ -145,7 +145,7 @@ const CartTable = ({
         return (
           <div>
             <p>
-              $ <span>{row?.productDTO?.priceDTO[0]?.price}VND</span>
+             <span>{row?.productDTO?.priceDTO[0]?.price}VND</span>
             </p>
           </div>
         );

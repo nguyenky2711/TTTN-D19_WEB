@@ -218,7 +218,7 @@ const Header = () => {
                                             >
                                                 <PersonOutlineOutlinedIcon />
                                                 <div
-                                                    className="account_option absolute w-[200px] p-2 border border-black right-0"
+                                                    className="account_option absolute w-[200px] bg-white p-2 border border-black right-0"
                                                     tabIndex={0}
                                                     onBlur={() => setActiveOption(false)}
                                                     style={activeOption ? { display: "block" } : { display: "none" }}

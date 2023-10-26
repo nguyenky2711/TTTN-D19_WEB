@@ -140,7 +140,7 @@ const ProductDetailPage = () => {
           </div>
           <div className="product_detail-price">
             <p>
-              $ <span>{price}</span>
+              <span>{price}</span>
             </p>
           </div>
           <div className="product_detail-selection">

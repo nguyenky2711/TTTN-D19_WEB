@@ -175,7 +175,7 @@ const ManageStatistic = () => {
             <div>
               <h4>Doanh thu ngày {dateStatictic.date}</h4>
               <p>
-                Tổng thu: $ <span>{dateStatictic.total}</span>
+                Tổng thu:<span>{dateStatictic.total}</span>
               </p>
             </div>
           ) : selectedTime == 2 && monthStatictic != undefined ? (
