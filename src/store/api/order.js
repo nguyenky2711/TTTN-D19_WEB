@@ -49,8 +49,11 @@ const order = {
     changeStatusOrder: (data) => {
         const url = `api/orders/${data.orderId}?status_id=${data.statusId}`;
         return internshipTransport.put(url);
+    },
+    updateReivew: (data) => {
+        const url = `api/orders/review`;
+        return internshipTransport.put(url, data);
     }
-
 };
 
 export default order;

@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { schema } from "./validate";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { updatePriceThunk } from "../../../../store/action/product";
+import messages from "../../../../config/messageCode/messages";
 const ModalPrice = ({
   open,
   onClose,
@@ -75,7 +76,7 @@ const ModalPrice = ({
     sendData.append("price_id", oldPrice.id);
     dispatch(updatePriceThunk([productId, sendData]))
       .then((res) => {
-        if (res?.payload?.message == "Updated price successfully") {
+        if (res?.payload?.message == messages.UPDATED_PRICE_SUCCESSFUL) {
           toast.success("Cập nhật giá sản phẩm thành công", {
             position: "top-right",
             autoClose: 3000,
@@ -129,13 +130,14 @@ const ModalPrice = ({
             >
               {errors?.new_price?.message}
             </CustomInput>
-            {acceptUpdate == false ? (
+            {/* {acceptUpdate == false ? (
               <Button type="button" onClick={handleChildOpen}>
                 Cập nhật
               </Button>
             ) : (
               <Button type="submit">Cập nhật</Button>
-            )}
+            )} */}
+            <Button type="submit">Cập nhật</Button>
             <Button type="button" onClick={handleParentClose}>
               Huỷ
             </Button>

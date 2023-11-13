@@ -12,6 +12,7 @@ import {
   getProductsForImportThunk,
 } from "../../store/action/product";
 import { getSizesThunk } from "../../store/action/manage";
+import messages from "../../config/messageCode/messages";
 // import ConfirmModalAntd from "src/component/shared/ConfirmModalAntd";
 const ImportPage = () => {
   const dispatch = useDispatch();
@@ -63,7 +64,7 @@ const ImportPage = () => {
   const handleOkModal = (value) => {
     value &&
       dispatch(createImportThunk(value)).then((res) => {
-        if (res?.payload?.message === "Create import successfully") {
+        if (res?.payload?.message === messages.CREATE_IMPORT_SUCCESSFULLY) {
           toast.success("Nhập hàng thành công", {
             position: "top-right",
             autoClose: 3000,
@@ -400,8 +401,8 @@ const ImportPage = () => {
           open={openModal}
           onCancel={handleModalCancel}
           onOk={() => handleOkModal(sendData)}
-          header={"Thêm khoá học "}
-          title={"Bạn có muốn thêm khoá học"}
+          header={"Hoàn thành nhập hàng "}
+          title={"Bạn có muốn hoàn thành nhập hàng ?"}
         ></ConfirmModalAntd>
       </div>
     </div>

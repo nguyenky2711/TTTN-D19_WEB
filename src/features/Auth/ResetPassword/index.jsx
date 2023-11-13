@@ -12,6 +12,10 @@ import {
   resetPasswordThunk,
   verifyEmailThunk,
 } from "../../../store/action/auth";
+import { schema1 } from "./startValidate";
+import { yupResolver } from "@hookform/resolvers/yup";
+import messages from "../../../config/messageCode/messages";
+
 const ResetPasswordPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,26 +28,30 @@ const ResetPasswordPage = () => {
     formState: { errors },
   } = useForm({
     mode: "all",
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema1),
   });
   const confirmEmail = (data) => {
     let email = new FormData();
     email.append("email", data.email);
     dispatch(verifyEmailThunk(email)).then((res) => {
-      if (res?.payload?.respone?.data?.message === "User not found") {
+      console.log(res);
+      if (res?.payload?.response?.data?.message == messages.USER_NOT_FOUND) {
         toast.error("Địa chỉ Mail không tồn tại", {
           position: "top-right",
           autoClose: 3000,
           style: { color: "red", backgroundColor: "#DEF2ED" },
         });
       } else if (
-        res?.payload?.respone?.data?.message === "Account is not confirmed"
+        res?.payload?.response?.data?.message == messages.ACCOUNT_NOT_CONFIRMED
       ) {
-        toast.error("Tài khoản của bạn chưa được xác nhận", {
-          position: "top-right",
-          autoClose: 3000,
-          style: { color: "red", backgroundColor: "#DEF2ED" },
-        });
+        toast.error(
+          "Tài khoản của bạn chưa được xác thực. Hãy kiểm tra mail của bạn",
+          {
+            position: "top-right",
+            autoClose: 3000,
+            style: { color: "red", backgroundColor: "#DEF2ED" },
+          }
+        );
       } else {
         toast.success("Hãy kiểm tra mail của bạn", {
           position: "top-right",
@@ -85,7 +93,9 @@ const ResetPasswordPage = () => {
                   placeholder="Email"
                   register={register}
                   subtitle={"Email"}
-                ></CustomInput>
+                >
+                  {errors.email?.message}
+                </CustomInput>
                 <Button name={"Xác nhận"} type="submit"></Button>
               </form>
             </div>

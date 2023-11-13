@@ -20,7 +20,7 @@ const SearchBar = ({ onSubmit }) => {
     onSubmit(searchInput, selectedType);
   };
   return (
-    <form action="" className="search_bar" onSubmit={handleSubmit}>
+    <form action="" className="mt-4 search_bar" onSubmit={handleSubmit}>
       <div className="search_input">
         <SearchOutlinedIcon />
         <input

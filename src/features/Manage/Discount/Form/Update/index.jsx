@@ -29,8 +29,8 @@ import {
   getDiscountsThunk,
   updateDiscountThunk,
 } from "../../../../../store/action/manage";
+import messages from "../../../../../config/messageCode/messages";
 const { RangePicker } = DatePicker;
-
 const DiscountUpdateForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ const DiscountUpdateForm = () => {
       dispatch(updateDiscountThunk([id, value]))
         .then((res) => {
           // dispatch(getDiscountsThunk[(0, 4)]);
-          if (res?.payload?.message == "Update successfully") {
+          if (res?.payload?.message == message.UPDATE_DISCOUNT_SUCCESSFULLY) {
             toast.success("Cập nhật khuyến mãi thành công", {
               position: "top-right",
               autoClose: 3000,

@@ -10,6 +10,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import DoneIcon from "@mui/icons-material/Done";
 import NotesIcon from "@mui/icons-material/Notes";
 import moment from "moment";
+import EditIcon from "@mui/icons-material/Edit";
+import { Modal } from "antd";
+import ReviewModal from "../ReviewModal";
 // import {
 //   changeStatusOrderThunk,
 //   getOrdersThunk,
@@ -29,6 +32,8 @@ const UserOrderDetailTable = ({
   const boxRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [openReviewModal, setOpenReviewModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState();
 
   useEffect(() => {
     if (boxRef.current) {
@@ -48,15 +53,7 @@ const UserOrderDetailTable = ({
     noRowsLabel: "Hiện chưa có đơn hàng nào",
     // You can customize other localization strings here as well
   };
-  const handleStatusOrder = (orderId, statusId) => {
-    const sendData = {
-      orderId: orderId,
-      statusId: statusId,
-    };
-    // dispatch(changeStatusOrderThunk(sendData)).then((res) => {
-    //   dispatch(getOrdersThunk());
-    // });
-  };
+
   const handlePaginationChange = (event, page) => {
     onPageChange(page); // Send the selected page number to the parent
   };
@@ -88,7 +85,7 @@ const UserOrderDetailTable = ({
       align: "center",
       sortable: false,
       headerAlign: "center",
-      flex: 0.1,
+      flex: 0.08,
       height: 70,
       renderCell: (params) => {
         const { row } = params;
@@ -125,7 +122,7 @@ const UserOrderDetailTable = ({
       align: "center",
       sortable: false,
       headerAlign: "center",
-      flex: 0.1,
+      flex: 0.08,
       height: 70,
       renderCell: (params) => {
         const { row } = params;
@@ -162,7 +159,7 @@ const UserOrderDetailTable = ({
       align: "center",
       sortable: false,
       headerAlign: "center",
-      flex: 0.1,
+      flex: 0.05,
       height: 70,
       renderCell: (params) => {
         const { row } = params;
@@ -190,8 +187,50 @@ const UserOrderDetailTable = ({
         );
       },
     },
+    // {
+    //   field: "action",
+    //   headerName: "",
+    //   align: "center",
+    //   sortable: false,
+    //   headerAlign: "center",
+    //   flex: 0.05,
+    //   height: 70,
+    //   renderCell: (params) => {
+    //     const { row } = params;
+    //     return (
+    //       <div
+    //         className="product_item-stock"
+    //         onClick={() => {
+    //           if (!row.reviewed) {
+    //             setOpenReviewModal(true);
+    //             setSelectedItem(row);
+    //           }
+    //         }}
+    //         style={{ cursor: "pointer" }}
+    //       >
+    //         <p>
+    //           {" "}
+    //           <EditIcon></EditIcon>
+    //         </p>
+    //       </div>
+    //     );
+    //   },
+    // },
   ];
 
+  //   <button type="button" onClick={() => setOpenReviewModal(true)}>
+  //   Đánh giá
+  // </button>
+  const handleReview = () => {
+    onChildAction();
+  };
+
+  const hideModal = () => {
+    setOpenReviewModal(false);
+  };
+  const handleOpenReviewModal = (value) => {
+    // value !== undefined && value !== null && setOpenReviewModal(value);
+  };
   return (
     <div className="orderHistoryTable">
       <Box
@@ -227,6 +266,19 @@ const UserOrderDetailTable = ({
       ) : (
         ""
       )}
+      <Modal
+        className="reviewModal"
+        title="Đánh giá sản phẩm"
+        open={openReviewModal}
+        onCancel={hideModal}
+        footer={null}
+      >
+        <ReviewModal
+          data={selectedItem}
+          onCancel={hideModal}
+          onReview={handleReview}
+        ></ReviewModal>
+      </Modal>
     </div>
   );
 };

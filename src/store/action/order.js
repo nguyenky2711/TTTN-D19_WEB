@@ -10,6 +10,7 @@ const {
     creatOrder,
     changeStatusOrder,
     getOrdersByUser,
+    updateReivew,
 } = order
 
 export const getPaymentsThunk = createAsyncThunk(
@@ -72,6 +73,13 @@ export const changeStatusOrderThunk = createAsyncThunk(
     'order/changeStatusOrder',
     async (data) => {
         const res = await changeStatusOrder(data);
+        return res;
+    }
+);
+export const updateReivewThunk = createAsyncThunk(
+    'order/review/updateReivew',
+    async (data) => {
+        const res = await updateReivew(data);
         return res;
     }
 );

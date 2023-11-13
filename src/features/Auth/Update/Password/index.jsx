@@ -1,35 +1,34 @@
 import React from "react";
-import CustomInput from "../../../../components/CustomInput/index";
-import { useForm } from "react-hook-form";
-import Button from "../../../../components/Button/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { changePasswordThunk } from "../../../../store/action/auth";
 import "./style.scss";
-import { schema } from "./validate";
-import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  Button,
+  Checkbox,
+  Col,
+  Row,
+  Form,
+  Input,
+  InputNumber,
+  Select,
+} from "antd";
 const ChangePasswordPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {
-    register,
-    formState: { errors },
-    setValue,
-    handleSubmit,
-  } = useForm({
-    mode: "all",
-    reValidateMode: "onChange",
-    resolver: yupResolver(schema),
-  });
-  const handleChangePassword = (data) => {
+  const [form] = Form.useForm();
+
+  const onFinish = (data) => {
     let dataSend = new FormData();
     dataSend.append("newPassword", data.newPassword);
     dataSend.append("oldPassword", data.oldPassword);
     dispatch(changePasswordThunk(dataSend)).then((res) => {
       console.log(res);
-      if (res?.payload == undefined) {
+      if (
+        res?.payload?.response?.data?.message == "Current password is incorrect"
+      ) {
         toast.error("Mật khẩu cũ không đúng", {
           position: "top-right",
           autoClose: 3000,
@@ -50,38 +49,118 @@ const ChangePasswordPage = () => {
       <div className="changePw_container">
         <div className="changePw_header">Đổi mật khẩu</div>
         <div className="form_changePw">
-          <form action="" onSubmit={handleSubmit(handleChangePassword)}>
-            <CustomInput
-              label="Mật khẩu cũ"
-              id="oldPassword"
-              type="password"
-              placeholder="Nhập  mật khẩu cũ"
-              register={register}
+          <Form
+            name="dynamic_form_nest_item"
+            form={form}
+            onFinish={onFinish}
+            onFieldsChange={(changeField, allFields) => {}}
+          >
+            <Form.Item
+              className="staff_item password"
+              name="oldPassword"
+              label={
+                <>
+                  <p>Mật khẩu cũ</p>{" "}
+                </>
+              }
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập mật khẩu!",
+                },
+                {
+                  pattern: new RegExp(/^(?=.*[A-Z])(?=.*[0-9]).*$/),
+                  message: "Vui lòng nhập ít nhất 1 chữ in hoa và 1 chữ số",
+                },
+                {
+                  validator: (_, value) => {
+                    if (value) {
+                      if (value.trim() === "") {
+                        return Promise.reject("Mật khẩu không được bỏ trống");
+                      }
+                      if (value.length < 6 || value.length > 32) {
+                        return Promise.reject(
+                          "Mật khẩu phải có độ dài từ 6 đến 32 ký tự"
+                        );
+                      }
+                    }
+                    return Promise.resolve(); // Resolve if the value is valid
+                  },
+                },
+              ]}
+              hasFeedback
             >
-              {errors.oldPassword?.message}
-            </CustomInput>
-            <CustomInput
-              label="Mật khẩu mới"
-              id="newPassword"
-              type="password"
-              placeholder="Nhập mật khẩu mới"
-              register={register}
+              <Input.Password />
+            </Form.Item>
+            <Form.Item
+              className="staff_item password"
+              name="newPassword"
+              label={
+                <>
+                  <p>Mật khẩu</p>{" "}
+                </>
+              }
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập mật khẩu!",
+                },
+                {
+                  pattern: new RegExp(/^(?=.*[A-Z])(?=.*[0-9]).*$/),
+                  message: "Vui lòng nhập ít nhất 1 chữ in hoa và 1 chữ số",
+                },
+                {
+                  validator: (_, value) => {
+                    if (value) {
+                      if (value.trim() === "") {
+                        return Promise.reject("Mật khẩu không được bỏ trống");
+                      }
+                      if (value.length < 6 || value.length > 32) {
+                        return Promise.reject(
+                          "Mật khẩu phải có độ dài từ 6 đến 32 ký tự"
+                        );
+                      }
+                    }
+                    return Promise.resolve(); // Resolve if the value is valid
+                  },
+                },
+              ]}
+              hasFeedback
             >
-              {errors.newPassword?.message}
-            </CustomInput>
-            <CustomInput
-              label="Nhập lại mật khẩu mới"
-              id="confirmNewPassword"
-              type="password"
-              placeholder="Nhập lại mật khẩu mới"
-              register={register}
-            >
-              {errors.confirmNewPassword?.message}
-            </CustomInput>
+              <Input.Password />
+            </Form.Item>
 
-            <Button name={"Xác nhận"} type="submit"></Button>
-          </form>
-          <ToastContainer />
+            <Form.Item
+              name="confirm"
+              label="Nhập lại mật khẩu"
+              dependencies={["newPassword"]}
+              hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng xác nhận mật khẩu!",
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue("newPassword") === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error("Mật khẩu không trùng khớp!")
+                    );
+                  },
+                }),
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+
+            <Form.Item className="submitBtn">
+              <Button type="submit" htmlType="submit">
+                Xác nhận
+              </Button>
+            </Form.Item>
+          </Form>
         </div>
       </div>
     </div>

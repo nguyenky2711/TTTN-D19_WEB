@@ -5,20 +5,25 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { createItemThunk } from "../../../../store/action/product";
 import { Button, Form, Input, Upload, message, Checkbox, Col, Row } from "antd";
-import { CloudUploadOutlined, UploadOutlined } from "@ant-design/icons";
+import {
+  CloudUploadOutlined,
+  DislikeOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
 import ConfirmModalAntd from "../../../../components/ConfirmModalAntd";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import messages from "../../../../config/messageCode/messages";
 const ProductAddForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const stateData = location.state;
+  const maxSize = 25 * 1024 * 1024; // 25MB in bytes
   const [fileList, setFileList] = useState([]);
   // hàm trim dữ liệu trong thẻ html
 
   const beforeUpload = async (file) => {
-    const maxSize = 25 * 1024 * 1024; // 25MB in bytes
     if (file.size > maxSize) {
       message.error("File size must be within 25MB!");
       return false; // Prevent file from being uploaded
@@ -45,17 +50,22 @@ const ProductAddForm = () => {
       // File upload failed
       message.error(`${info.file.name} file upload failed.`);
     }
-    const firstFile = info.fileList[0];
-    const secondFile = info.fileList[1];
-    if (info?.fileList?.length < fileList.length) {
-      if (info?.fileList?.length === 0) {
-        setFileList();
-      } else {
-        setFileList([firstFile]);
-      }
-    } else {
-      setFileList(info.fileList);
-    }
+    const validFiles = info.fileList.filter(
+      (file) => file.type.match(/image\/.*/) && file.size < maxSize
+    );
+
+    setFileList(validFiles);
+    // const firstFile = info.fileList[0];
+    // const secondFile = info.fileList[1];
+    // if (info?.fileList?.length < fileList.length) {
+    //   if (info?.fileList?.length === 0) {
+    //     setFileList();
+    //   } else {
+    //     setFileList([firstFile]);
+    //   }
+    // } else {
+    //   setFileList(info.fileList);
+    // }
   };
 
   const handleRemove = (file) => {
@@ -94,7 +104,10 @@ const ProductAddForm = () => {
           });
           navigate("/manage/product");
         } else {
-          if (res?.error?.message === "Request failed with status code 409") {
+          if (
+            res?.payload?.response?.data?.message ===
+            messages.ITEM_NAME_ALREADY_EXISTS
+          ) {
             toast.error("Mặt hàng đã tồn tại", {
               position: "top-right",
               autoClose: 3000,
@@ -126,6 +139,7 @@ const ProductAddForm = () => {
     lastData.append("imagesName", JSON.stringify(filesName));
     lastData.append("imagesUrl", JSON.stringify(filesUrl));
     setSendData(lastData);
+    setOpenModal(true);
   };
   return (
     <div className="container">
@@ -264,7 +278,7 @@ const ProductAddForm = () => {
                     if (value && value.trim()) {
                       if (value.trim() == "<p><br></p>") {
                         return Promise.reject(
-                          "Vui lòng nhập nội dung mô tả mặt hàng"
+                          "Vui lòng nhập nội dung hướng dẫn chăm sóc"
                         );
                       }
                       if (value.trim().length > 500) {
@@ -296,6 +310,21 @@ const ProductAddForm = () => {
                 {
                   required: true,
                   message: "Vui lòng chọn hình ảnh mặt hàng",
+                },
+                {
+                  validator: (_, value) => {
+                    if (value) {
+                      if (value.fileList.length === 0) {
+                        return Promise.reject(
+                          "Vui lòng chọn hình ảnh mặt hàng"
+                        );
+                      } else {
+                        return Promise.resolve();
+                      }
+                    } else {
+                      return Promise.reject();
+                    }
+                  },
                 },
               ]}
             >

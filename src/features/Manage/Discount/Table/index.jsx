@@ -14,6 +14,7 @@ import {
   getUsersThunk,
   updateDiscountThunk,
 } from "../../../../store/action/manage";
+import messages from "../../../../config/messageCode/messages";
 const ManageDiscountTable = ({
   list,
   listHavePages,
@@ -58,7 +59,7 @@ const ManageDiscountTable = ({
     sendData.append("endDate", value.endDate);
     sendData.append("status_id", 10);
     dispatch(updateDiscountThunk([value.id, sendData])).then((res) => {
-      if (res?.payload?.message == "Update successfully") {
+      if (res?.payload?.message == messages.UPDATE_DISCOUNT_SUCCESSFULLY) {
         toast.success("Xoá khuyến mãi thành công", {
           position: "top-right",
           autoClose: 3000,
@@ -118,7 +119,7 @@ const ManageDiscountTable = ({
       align: "center",
       sortable: false,
       headerAlign: "center",
-      flex: 0.25,
+      flex: 0.15,
       height: 70,
       renderCell: (params) => {
         const { row } = params;
@@ -133,7 +134,7 @@ const ManageDiscountTable = ({
       field: "time",
       headerName: "Thời gian hiệu lực",
       // width: 360,
-      flex: 0.2,
+      flex: 0.25,
       height: 70,
       sortable: false,
       align: "center",

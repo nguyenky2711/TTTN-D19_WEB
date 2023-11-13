@@ -139,4 +139,52 @@
       }
     }
   }
+  .product_review-container {
+    .product_review_item {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+      .product_review-left {
+        flex-basis: 80%;
+        .review_by {
+          margin-bottom: 15px;
+          font-size: 12px;
+        }
+        .review_point,
+        .review_text {
+          margin: 15px 0px;
+        }
+        .review_image {
+          img {
+            width: 80px;
+            height: 80px;
+          }
+        }
+      }
+      .product_review-right {
+        flex-basis: 10%;
+        display: flex;
+        justify-content: space-between;
+        .product_review_item-action {
+          .content {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            svg {
+              margin-left: 15px;
+              width: 1.2em;
+              height: 1.2em;
+            }
+            &:hover {
+              svg {
+                color: #1eb853;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

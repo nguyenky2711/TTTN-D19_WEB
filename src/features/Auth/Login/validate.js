@@ -10,7 +10,17 @@ export const schema = yup
             .matches(
                 /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
                 '* Địa chỉ email không đúng'
-            ),
+            )
+            .matches(
+                /^[^\s]+$/,
+                '* Địa chỉ email không được chứa dấu cách'
+            )
+            .matches(
+                /^[\S]+$/,
+                '* Địa chỉ email không được chứa dấu cách ở đầu hoặc cuối'
+            )
+        ,
+
         password: yup
             .string()
             .required('* Vui lòng nhập mật khẩu')

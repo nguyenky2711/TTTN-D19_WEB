@@ -13,7 +13,7 @@ import {
   getProductByItemIdThunk,
   updateItemThunk,
 } from "../../../../store/action/product";
-
+import messages from "../../../../config/messageCode/messages";
 const ProductUpdateForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,6 +23,8 @@ const ProductUpdateForm = () => {
   const [item, setItem] = useState();
   const url = window.location.href;
   const id = url.substring(url.lastIndexOf("/") + 1);
+  const maxSize = 25 * 1024 * 1024; // 25MB in bytes
+
   useEffect(() => {
     dispatch(getProductByItemIdThunk(id)).then((res) => {
       let temp = res?.payload?.productDTO[0]?.itemDTO?.data?.type_id;
@@ -43,7 +45,6 @@ const ProductUpdateForm = () => {
     });
   }, []);
   const beforeUpload = async (file) => {
-    const maxSize = 25 * 1024 * 1024; // 25MB in bytes
     if (file.size > maxSize) {
       message.error("File size must be within 25MB!");
       return false; // Prevent file from being uploaded
@@ -63,7 +64,6 @@ const ProductUpdateForm = () => {
   };
 
   const handleUploadChange = async (info) => {
-    console.log(info);
     if (info.file.status === "done") {
       // File upload was successful
       message.success(`${info.file.name} file uploaded successfully.`);
@@ -71,16 +71,21 @@ const ProductUpdateForm = () => {
       // File upload failed
       message.error(`${info.file.name} file upload failed.`);
     }
-    const firstFile = info?.fileList[0];
-    const secondFile = info?.fileList[1];
-    if (info?.fileList?.length < fileList.length) {
-      if (info?.fileList?.length === 0) {
-      } else {
-        setFileList([firstFile]);
-      }
-    } else {
-      setFileList(info.fileList);
-    }
+    const validFiles = info.fileList.filter(
+      (file) => file?.type?.match(/image\/.*/) || file.url
+    );
+
+    setFileList(validFiles);
+    // const firstFile = info?.fileList[0];
+    // const secondFile = info?.fileList[1];
+    // if (info?.fileList?.length < fileList.length) {
+    //   if (info?.fileList?.length === 0) {
+    //   } else {
+    //     setFileList([firstFile]);
+    //   }
+    // } else {
+    //   setFileList(info.fileList);
+    // }
   };
 
   const handleRemove = (file) => {
@@ -118,11 +123,22 @@ const ProductUpdateForm = () => {
           });
           navigate("/manage/product");
         } else {
-          toast.success("Cập nhật mặt hàng thất bại", {
-            position: "top-right",
-            autoClose: 3000,
-            style: { color: "red", backgroundColor: "#D7F1FD" },
-          });
+          if (
+            res?.payload?.response?.data?.message ===
+            messages.ITEM_NAME_ALREADY_EXISTS
+          ) {
+            toast.error("Mặt hàng đã tồn tại", {
+              position: "top-right",
+              autoClose: 3000,
+              style: { color: "red", backgroundColor: "#D7F1FD" },
+            });
+          } else {
+            toast.success("Cập nhật mặt hàng thất bại", {
+              position: "top-right",
+              autoClose: 3000,
+              style: { color: "red", backgroundColor: "#D7F1FD" },
+            });
+          }
         }
         // navigate("/manage/discount");
       });
@@ -142,6 +158,7 @@ const ProductUpdateForm = () => {
     lastData.append("imagesName", JSON.stringify(filesName));
     lastData.append("imagesUrl", JSON.stringify(filesUrl));
     setSendData(lastData);
+    setOpenModal(true);
   };
   return (
     <div className="container">
@@ -314,7 +331,7 @@ const ProductUpdateForm = () => {
                       if (value && value.trim()) {
                         if (value.trim() == "<p><br></p>") {
                           return Promise.reject(
-                            "Vui lòng nhập nội dung mô tả mặt hàng"
+                            "Vui lòng nhập nội dung hướng dẫn chăm sóc"
                           );
                         }
                         if (value.trim().length > 500) {
@@ -346,8 +363,24 @@ const ProductUpdateForm = () => {
                 name={"upload"}
                 rules={[
                   {
-                    required: true,
-                    message: "Vui lòng chọn hình ảnh mặt hàng",
+                    required: false,
+                    // message: "Vui lòng chọn hình ảnh mặt hàng",
+                  },
+                  {
+                    validator: (_, value) => {
+                      console.log(value);
+                      if (value) {
+                        if (value?.fileList?.length === 0 || !fileList) {
+                          return Promise.reject(
+                            "Vui lòng chọn hình ảnh mặt hàng"
+                          );
+                        } else {
+                          return Promise.resolve();
+                        }
+                      } else {
+                        return Promise.resolve();
+                      }
+                    },
                   },
                 ]}
               >

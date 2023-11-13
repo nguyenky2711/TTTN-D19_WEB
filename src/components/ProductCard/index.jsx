@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { addProductToCartThunk, getCartThunk } from "../../store/action/cart";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import messages from "../../config/messageCode/messages";
 
 const ProductCard = ({ data }) => {
   // console.log(data[0]?.itemDTO?.id);
@@ -28,7 +29,9 @@ const ProductCard = ({ data }) => {
           autoClose: 3000,
           style: { color: "red", backgroundColor: "#D7F1FD" },
         });
-      } else if (res?.payload?.message === "Product already exists in cart.") {
+      } else if (
+        res?.payload?.message === messages.PRODUCT_ALREADY_EXISTS_IN_CART
+      ) {
         toast.error("Sản phẩm đã có trong giỏ hàng", {
           position: "top-right",
           autoClose: 3000,
@@ -61,13 +64,15 @@ const ProductCard = ({ data }) => {
             <div className="h-[380px]">
               <img
                 className="h-[100%] bg-center ndv__img"
-                src={`http://localhost:4000/uploads/${data[0]?.itemDTO?.imageDTO[0]?.name}`}
+                // src={`http://localhost:4000/uploads/${data[0]?.itemDTO?.imageDTO[0]?.name}`}
+                src={data[0]?.itemDTO?.imageDTO[0]?.url}
                 alt="img"
               />
               <div className="absolute top-0 w-full h-full opacity-0 bg-img__overplay group-hover:opacity-100"></div>
             </div>
-            {data[0]?.priceDTO[0]?.discounted_price !==
-              data[0]?.priceDTO[0]?.price && (
+            {data[0]?.priceDTO[data[0]?.priceDTO?.length - 1]
+              ?.discounted_price !==
+              data[0]?.priceDTO[data[0]?.priceDTO?.length - 1]?.price && (
               <div className="absolute w-[100px] z-10 bg-white py-2 px-4 top-3 right-3 text-[#a25f4b] text-sm tracking-widest font-bold">
                 On Sale
               </div>
@@ -83,19 +88,28 @@ const ProductCard = ({ data }) => {
       </div>
       <div className="mt-[25px] mb-[20px] text-center">
         <p className="ndv-name-product">{data[0]?.itemDTO?.data?.name}</p>
-        {data[0]?.priceDTO[0]?.discounted_price !==
-        data[0]?.priceDTO[0]?.price ? (
+        {data[0]?.priceDTO[data[0]?.priceDTO?.length - 1]?.discounted_price !==
+        data[0]?.priceDTO[data[0]?.priceDTO?.length - 1]?.price ? (
           <div>
             <span className="text-lg font-bold text-color-second">
-              {data[0]?.priceDTO[0]?.discounted_price.toLocaleString()} VND
+              {data[0]?.priceDTO[
+                data[0]?.priceDTO?.length - 1
+              ]?.discounted_price.toLocaleString()}{" "}
+              VND
             </span>
             <span className="ml-2 line-through text-main">
-              {data[0]?.priceDTO[0]?.price.toLocaleString()} VND
+              {data[0]?.priceDTO[
+                data[0]?.priceDTO?.length - 1
+              ]?.price.toLocaleString()}{" "}
+              VND
             </span>
           </div>
         ) : (
           <p className="text-main">
-            {data[0]?.priceDTO[0]?.price.toLocaleString()} VND
+            {data[0]?.priceDTO[
+              data[0]?.priceDTO?.length - 1
+            ]?.price.toLocaleString()}{" "}
+            VND
           </p>
         )}
       </div>

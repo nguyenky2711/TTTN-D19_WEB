@@ -13,6 +13,11 @@ const {
     getProductsForImport,
     updatePrice,
     updateSize,
+    createLike,
+    createDislike,
+    deleteDislike,
+    deleteLike,
+    getReviewsByItemId
 } = product
 
 export const createProductThunk = createAsyncThunk(
@@ -104,5 +109,41 @@ export const createItemThunk = createAsyncThunk(
             console.error('Error creating item:', error);
             throw error;
         }
+    }
+);
+
+export const createLikeThunk = createAsyncThunk(
+    'product/createLike',
+    async (data) => {
+        const res = await createLike(data);
+        return res;
+    }
+);
+export const createDislikeThunk = createAsyncThunk(
+    'product/createDislike',
+    async (data) => {
+        const res = await createDislike(data);
+        return res;
+    }
+);
+export const deleteDislikeThunk = createAsyncThunk(
+    'product/deleteDislike',
+    async (data) => {
+        const res = await deleteDislike(data);
+        return res;
+    }
+);
+export const deleteLikeThunk = createAsyncThunk(
+    'product/deleteLike',
+    async (data) => {
+        const res = await deleteLike(data);
+        return res;
+    }
+);
+export const getReviewsByItemIdThunk = createAsyncThunk(
+    'product/getReviewsByItemId',
+    async (data) => {
+        const res = await getReviewsByItemId(data);
+        return res;
     }
 );

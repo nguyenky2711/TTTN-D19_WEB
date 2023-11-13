@@ -16,13 +16,7 @@ const HomePage = () => {
     });
   }, []);
   console.log(list);
-  const handleSearchSubmit = (searchInput, selectedType) => {
-    dispatch(getListProductThunk([0, 100, searchInput, selectedType])).then(
-      (res) => {
-        setList(res?.payload);
-      }
-    );
-  };
+  
   useEffect(() => {
     AOS.init();
     AOS.refresh();
@@ -30,8 +24,7 @@ const HomePage = () => {
   return (
     <div className="container">
       <div className="home_container">
-        <SearchBar onSubmit={handleSearchSubmit} />
-        <section className="slider mx-auto w-[95%] max-w-screen-2xl h-[530px] bg-[url('./images/4.jpg')] bg-cover bg-no-repeat bg-bottom mt-10" >
+        <section className="slider mx-auto w-[95%] max-w-screen-2xl h-[530px] bg-[url('./images/4.jpg')] bg-cover bg-no-repeat bg-bottom" >
           <div className="relative w-full h-full">
             <div className='absolute w-full h-full bg-[#050827] opacity-20 z-1'>
 

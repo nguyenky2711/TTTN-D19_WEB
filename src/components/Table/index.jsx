@@ -72,7 +72,6 @@ const Table = ({
       height: 70,
       renderCell: (params) => {
         const { row } = params;
-        console.log(row?.productDTO?.itemDTO?.imageDTO[0]?.name);
         return (
           <div className="cart_item-img">
             <img
@@ -122,7 +121,7 @@ const Table = ({
         return (
           <div>
             <p>
-              $ <span>{row?.productDTO?.priceDTO[0]?.price}</span>
+              <span>{row?.productDTO?.priceDTO[0]?.price}</span>
             </p>
           </div>
         );

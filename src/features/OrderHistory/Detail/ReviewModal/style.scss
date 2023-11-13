@@ -1,0 +1,74 @@
+.reviewModal_container {
+  .itemInfor {
+    display: flex;
+    justify-content: space-between;
+    .itemImg {
+      flex-basis: 20%;
+      img {
+        width: 80px;
+        height: 80px;
+      }
+    }
+    .itemContent {
+      flex-basis: 75%;
+      .itemName {
+        p {
+          font-weight: 800;
+          font-size: 15px;
+        }
+      }
+      .itemType {
+      }
+    }
+  }
+  .reviewForm {
+    .itemRate {
+      margin: 15px 0px;
+      .ant-form-item-control-input-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        svg {
+          height: 25px;
+          width: 25px;
+        }
+      }
+    }
+    .ant-input-affix-wrapper {
+      border-color: #1eb853;
+    }
+    .itemImg {
+      .ant-form-item-row {
+        display: flex;
+        flex-direction: column;
+        .ant-form-item-label {
+          text-align: start;
+        }
+        .ant-form-item-required {
+          &::before {
+            right: 1px;
+            top: 3px;
+            font-size: 11px !important;
+            position: absolute;
+          }
+          &::after {
+            right: -8px;
+          }
+        }
+        .ant-input-number {
+          width: 100%;
+        }
+      }
+      .ant-upload-select {
+        width: 100%;
+        .ant-btn {
+          border-color: #1eb853;
+          color: #1eb853;
+        }
+      }
+    }
+  }
+  .buttonGroup {
+    margin-top: 120px;
+  }
+}

@@ -15,6 +15,7 @@ import {
   getUsersThunk,
 } from "../../../../store/action/manage";
 import { toast } from "react-toastify";
+import messages from "../../../../config/messageCode/messages";
 const ManageUserTable = ({
   list,
   listHavePages,
@@ -53,7 +54,7 @@ const ManageUserTable = ({
     sendData.append("user_id", user_id);
     sendData.append("status_id", status_id == "1" ? 2 : 1);
     dispatch(changeStatusAccountThunk(sendData)).then((res) => {
-      if (res?.payload?.message === "User status changed successfully") {
+      if (res?.payload?.message === messages.USER_STATUS_CHANGE_SUCCESSFUL) {
         toast.success(
           status_id == "1"
             ? "Khoá tài khoản thành công"

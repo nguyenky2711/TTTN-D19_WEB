@@ -14,6 +14,7 @@ import {
   changeStatusOrderThunk,
   getOrdersThunk,
 } from "../../../../store/action/order";
+import messages from "../../../../config/messageCode/messages";
 const OrderManagerTable = ({
   list,
   listHavePages,
@@ -54,7 +55,7 @@ const OrderManagerTable = ({
     };
     dispatch(changeStatusOrderThunk(sendData)).then((res) => {
       // dispatch(getOrdersThunk([no, limit])).then((res) => {});
-      if (res?.payload?.message == "Status updated successfully") {
+      if (res?.payload?.message == messages.STATUS_UPDATED_SUCCESSFULLY) {
         toast.success("Cập nhật đơn hàng thành công", {
           position: "top-right",
           autoClose: 3000,

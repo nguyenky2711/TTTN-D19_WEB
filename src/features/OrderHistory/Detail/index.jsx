@@ -8,6 +8,8 @@ import {
 } from "../../../store/action/order";
 import UserOrderDetailTable from "./Table";
 import moment from "moment";
+import ReviewModal from "./ReviewModal";
+import { Modal } from "antd";
 const UserOrderDetail = () => {
   const dispatch = useDispatch();
   const url = window.location.href;
@@ -37,11 +39,10 @@ const UserOrderDetail = () => {
       setChildChange(false);
     });
     // dispatch(getPaymentByIDThunk());
-  }, [currentPage]);
+  }, [currentPage, childChange]);
   useEffect(() => {
     if (data != undefined) {
       dispatch(getPaymentByIDThunk(data.orderDTO.payment_id)).then((res) => {
-        console.log(res);
         setPaymentData(res?.payload);
       });
     }
@@ -50,7 +51,7 @@ const UserOrderDetail = () => {
     let discountedPrice = 0;
 
     // Loop through the items in the order_detailDTO array
-    data.order_detailDTO.forEach((item) => {
+    data?.order_detailDTO?.forEach((item) => {
       if (
         item.productDTO.priceDTO[0].price !==
         item.productDTO.priceDTO[0].discounted_price
@@ -62,49 +63,54 @@ const UserOrderDetail = () => {
 
     return discountedPrice;
   };
-  console.log(paymentData);
   return (
     <div className="container">
       <div className="orderHistory_container">
         <h1 className="orderHistory_title">Chi tiết đơn hàng</h1>
-        <div className="orderHistory_content">
-          <p>
-            Ngày đặt:{" "}
-            <span>
-              {data && moment(data.orderDTO.created_at).format("DD-MM-YYYY")}
-            </span>
-          </p>
-          <p>
-            Thực tổng:{" "}
-            <span>
-              {data &&
-                (
-                  data?.orderDTO?.total + calculateDiscountPrice()
-                ).toLocaleString()}{" "}
-              VND
-            </span>
-          </p>
-          <p>
-            Giảm giá:{" "}
-            <span>{data && calculateDiscountPrice().toLocaleString()} VND</span>
-          </p>
-          <p>
-            Thực trả:{" "}
-            <span>{data && data?.orderDTO?.total.toLocaleString()} VND</span>
-          </p>
-          <p>
-            Phương thức thanh toán:{" "}
-            <span>{paymentData && paymentData?.data?.method}</span>
-          </p>
-          <p>
-            Thông tin người nhận:{" "}
-            <span>{data && data?.orderDTO?.receiver_name}</span>
-            {" - "}
-            <span>{data && data?.orderDTO?.receiver_phone}</span>
-            {" - "}
-            <span>{data && data?.orderDTO?.receiver_address}</span>
-          </p>
-        </div>
+        {data !== undefined && (
+          <div className="orderHistory_content">
+            <p>
+              Ngày đặt:{" "}
+              <span>
+                {data &&
+                  moment(data?.orderDTO?.created_at).format("DD-MM-YYYY")}
+              </span>
+            </p>
+            <p>
+              Thực tổng:{" "}
+              <span>
+                {data &&
+                  (
+                    data?.orderDTO?.total + calculateDiscountPrice()
+                  ).toLocaleString()}{" "}
+                VND
+              </span>
+            </p>
+            <p>
+              Giảm giá:{" "}
+              <span>
+                {data && calculateDiscountPrice().toLocaleString()} VND
+              </span>
+            </p>
+            <p>
+              Thực trả:{" "}
+              <span>{data && data?.orderDTO?.total.toLocaleString()} VND</span>
+            </p>
+            <p>
+              Phương thức thanh toán:{" "}
+              <span>{paymentData && paymentData?.data?.method}</span>
+            </p>
+            <p>
+              Thông tin người nhận:{" "}
+              <span>{data && data?.orderDTO?.receiver_name}</span>
+              {" - "}
+              <span>{data && data?.orderDTO?.receiver_phone}</span>
+              {" - "}
+              <span>{data && data?.orderDTO?.receiver_address}</span>
+            </p>
+          </div>
+        )}
+
         {data != undefined ? (
           <UserOrderDetailTable
             list={data?.order_detailDTO}

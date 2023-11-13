@@ -1,41 +1,36 @@
 import React, { useEffect, useState } from "react";
-import CustomInput from "../../../../components/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import Button from "../../../../components/Button";
 import { ToastContainer, toast } from "react-toastify";
 import {
   changeInforThunk,
   getUserByIdThunk,
 } from "../../../../store/action/auth";
 import "./style.scss";
-import { schema } from "./validate";
-import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  Button,
+  Checkbox,
+  Col,
+  Row,
+  Form,
+  Input,
+  InputNumber,
+  Select,
+} from "antd";
 const ChangeInforPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = useSelector((state) => state.auth.login.currentUser);
   const [realData, setRealData] = useState();
+  const [form] = Form.useForm();
+
   useEffect(() => {
     dispatch(getUserByIdThunk(data?.userDTO?.id)).then((res) => {
       setRealData(res?.payload?.data);
     });
   }, []);
 
-  const {
-    register,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    mode: "all",
-    resolver: yupResolver(schema),
-  });
-  useEffect(() => {
-    // setValue('na')
-  }, [data]);
-  const handleUpdateInfor = (value) => {
+  const onFinish = (value) => {
     let dataSend = new FormData();
     dataSend.append("name", value.name);
     dataSend.append("address", value.address);
@@ -67,62 +62,170 @@ const ChangeInforPage = () => {
         <div className="updateInfo-header">Thông tin tài khoản</div>
         <div className="form_updateInfo">
           {realData != undefined && (
-            <form action="" onSubmit={handleSubmit(handleUpdateInfor)}>
-              <CustomInput
+            //  defaultValue={realData?.userDTO?.email}
+            // defaultValue={realData?.userDTO?.name}
+            // defaultValue={realData?.userDTO?.address}
+            // defaultValue={realData?.userDTO?.phone}
+
+            <Form
+              name="dynamic_form_nest_item"
+              form={form}
+              onFinish={onFinish}
+              onFieldsChange={(changeField, allFields) => {}}
+              initialValues={{
+                email: realData?.userDTO?.email,
+                name: realData?.userDTO?.name,
+                address: realData?.userDTO?.address,
+                phone: realData?.userDTO?.phone,
+              }}
+            >
+              <Form.Item
+                className="staff_item email"
                 label="Email"
-                id="email"
-                setValue={setValue}
-                register={register}
-                type="text"
-                placeholder="Email"
-                defaultValue={realData?.userDTO?.email}
-                disabled
-              ></CustomInput>
-              <CustomInput
-                label="Họ và tên"
-                id="name"
-                setValue={setValue}
-                register={register}
-                type="text"
-                placeholder="Họ và tên"
-                defaultValue={realData?.userDTO?.name}
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập địa chỉ email",
+                  },
+                  {
+                    type: "email",
+                    message: "Địa chỉ email không hợp lệ",
+                  },
+                  {
+                    validator: (_, value) => {
+                      if (value && value.length <= 256 && value.trim() != "") {
+                        return Promise.resolve();
+                      } else {
+                        if (value && value.length > 256) {
+                          return Promise.reject(
+                            "Vui lòng nhập tối đa 256 ký tự"
+                          );
+                        }
+                        if (!value || value == "") {
+                          return Promise.reject();
+                        }
+                        if (value.trim() == "") {
+                          return Promise.reject("Vui lòng nhập họ và tên");
+                        }
+                      }
+                    },
+                  },
+                ]}
               >
-                {errors.name?.message}
-              </CustomInput>
-              <CustomInput
+                <Input placeholder="Nhập email nhân viên" disabled />
+              </Form.Item>
+              <div className="name_gender">
+                <Form.Item
+                  className="staff_item name"
+                  label="Họ và tên"
+                  name="name"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Vui lòng nhập họ và tên",
+                    },
+                    {
+                      pattern: new RegExp(
+                        /^[A-Za-zÀ-ỹẠ-ỹĂ-ắÂ-ẽÊ-ỷÔ-ỗƠ-ờƯ-ứĐđ]+( [A-Za-zÀ-ỹẠ-ỹĂ-ắÂ-ẽÊ-ỷÔ-ỗƠ-ờƯ-ứĐđ]+)*$/
+                      ),
+                      message: "Họ tên không hợp lệ",
+                    },
+                    {
+                      validator: (_, value) => {
+                        if (value) {
+                          if (value.length < 2 || value.length > 64) {
+                            return Promise.reject(
+                              "Họ và tên phải có độ dài từ 2 đến 64 ký tự"
+                            );
+                          }
+                          if (value.trim() == "") {
+                            return Promise.reject("Vui lòng nhập họ và tên");
+                          }
+                          return Promise.resolve();
+                        } else if (!value || value == "") {
+                          return Promise.reject();
+                        }
+                      },
+                    },
+                  ]}
+                >
+                  <Input placeholder="Nhập họ và tên" />
+                </Form.Item>
+              </div>
+              <Form.Item
+                className="staff_item name"
                 label="Địa chỉ"
-                id="address"
-                setValue={setValue}
-                register={register}
-                type="text"
-                placeholder="Địa chỉ"
-                defaultValue={realData?.userDTO?.address}
+                name="address"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập địa chỉ",
+                  },
+                ]}
               >
-                {errors.address?.message}
-              </CustomInput>
-              <CustomInput
+                <Input placeholder="Nhập địa chỉ" />
+              </Form.Item>
+              <Form.Item
+                className="staff_item phone"
                 label="Số điện thoại"
-                id="phone"
-                setValue={setValue}
-                register={register}
-                type="text"
-                placeholder="Số điện thoại"
-                defaultValue={realData?.userDTO?.phone}
+                name="phone"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập số điện thoại",
+                  },
+                  {
+                    pattern: new RegExp(/^[0-9]+$/),
+                    message: "Số điện thoại không hợp lệ",
+                  },
+                  {
+                    validator: (_, value) => {
+                      if (value) {
+                        if (value.trim() == "") {
+                          return Promise.reject("Vui lòng nhập họ và tên");
+                        }
+                        if (value.length < 9 || value.length > 10) {
+                          return Promise.reject(
+                            "Số điện thoại phải có độ dài từ 9 đến 10 ký tự"
+                          );
+                        } else {
+                          return value.length == 9
+                            ? value.charAt(0) == 1 ||
+                              value.charAt(0) == 0 ||
+                              value.charAt(0) == 2 ||
+                              value.charAt(0) == 4 ||
+                              value.charAt(0) == 6
+                              ? Promise.reject("Đầu số điện thoại không đúng")
+                              : Promise.resolve()
+                            : value.charAt(0) != 0
+                            ? Promise.reject("Đầu số điện thoại không đúng")
+                            : value.charAt(1) == 1 ||
+                              value.charAt(1) == 0 ||
+                              value.charAt(1) == 2 ||
+                              value.charAt(1) == 4 ||
+                              value.charAt(1) == 6
+                            ? Promise.reject("Đầu số điện thoại không đúng")
+                            : Promise.resolve();
+                        }
+                      } else if (!value || value == "") {
+                        return Promise.reject();
+                      }
+                    },
+                  },
+                ]}
               >
-                {errors.phone?.message}
-              </CustomInput>
-              <CustomInput
-                label="Trạng thái"
-                id="status"
-                setValue={setValue}
-                register={register}
-                type="text"
-                placeholder="Trạng thái"
-                defaultValue={"Active"}
-                disabled
-              ></CustomInput>
-              <Button name={"Xác nhận"} type="submit"></Button>
-            </form>
+                <Input
+                  placeholder="Số điện thoại bắt đầu với đầu số 03,05,07,09"
+                  addonBefore="+84"
+                />
+              </Form.Item>
+              <Form.Item className="submitBtn">
+                <Button type="submit" htmlType="submit">
+                  Xác nhận
+                </Button>
+              </Form.Item>
+            </Form>
           )}
         </div>
       </div>

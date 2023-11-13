@@ -31,7 +31,7 @@ const Header = () => {
     dispatch(getCartThunk([0, 100])).then((res) => {});
   }, [dispatch]);
   const quantity = useSelector((state) => state?.cart?.data?.totalItem);
-
+  console.log(quantity);
   // useEffect(() => {
   //   setQuantity(state.cart.data.totalItem);
   // }, [dispatch]);
@@ -266,7 +266,7 @@ const Header = () => {
                   >
                     <PersonOutlineOutlinedIcon />
                     <div
-                      className="account_option absolute w-[200px] p-2 border border-black right-0"
+                      className="account_option absolute w-[200px] p-2 border border-black right-0 z-10 bg-white"
                       tabIndex={0}
                       onBlur={() => setActiveOption(false)}
                       style={

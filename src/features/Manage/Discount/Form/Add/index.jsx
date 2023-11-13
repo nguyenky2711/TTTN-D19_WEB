@@ -27,6 +27,7 @@ import "react-quill/dist/quill.snow.css";
 import { getProductsForImportThunk } from "../../../../../store/action/product";
 import moment from "moment";
 import dayjs from "dayjs";
+import messages from "../../../../../config/messageCode/messages";
 const { RangePicker } = DatePicker;
 
 const DiscountAddForm = () => {
@@ -65,7 +66,7 @@ const DiscountAddForm = () => {
       dispatch(creatDiscountThunk(value))
         .then((res) => {
           console.log(res);
-          if (res?.payload?.message === "Create discount successfully") {
+          if (res?.payload?.message === messages.CREATE_DISCOUNT_SUCCESSFULLY) {
             toast.success("Tạo mới khuyến mãi thành công", {
               position: "top-right",
               autoClose: 3000,
@@ -73,7 +74,10 @@ const DiscountAddForm = () => {
             });
             navigate("/manage/discount");
           } else {
-            if (res?.error?.message === "Request failed with status code 409") {
+            if (
+              res?.payload?.response?.data?.message ===
+              messages.ITEM_ALREADY_HAS_DISCOUNT
+            ) {
               toast.error("Sản phẩm đã có khuyến mãi", {
                 position: "top-right",
                 autoClose: 3000,
@@ -106,6 +110,14 @@ const DiscountAddForm = () => {
       moment(dayjs(values.time[1]).valueOf()).format("YYYY-MM-DD")
     );
     setSendData(lastData);
+    setOpenModal(true);
+  };
+  const disabledDate = (current) => {
+    // Get the current date and format it
+    const currentDate = moment().startOf("day");
+
+    // Disable dates that are before the current date
+    return current && current < currentDate;
   };
   return (
     <div className="container">
@@ -216,6 +228,7 @@ const DiscountAddForm = () => {
                 <RangePicker
                   format={"YYYY-MM-DD"}
                   placeholder={["Bắt đầu", "Kết thúc"]}
+                  disabledDate={disabledDate}
                 />
               </Form.Item>
             </div>
@@ -225,7 +238,7 @@ const DiscountAddForm = () => {
                 <Button
                   type="submit"
                   htmlType="submit"
-                  onClick={() => !hadErrors && setOpenModal(true)}
+                  // onClick={() => !hadErrors && setOpenModal(true)}
                 >
                   Hoàn thành
                 </Button>

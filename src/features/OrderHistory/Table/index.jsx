@@ -10,6 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import DoneIcon from "@mui/icons-material/Done";
 import NotesIcon from "@mui/icons-material/Notes";
 import { changeStatusOrderThunk } from "../../../store/action/order";
+import messages from "../../../config/messageCode/messages";
 const OrderHistoryTable = ({
   list,
   listHavePages,
@@ -64,7 +65,7 @@ const OrderHistoryTable = ({
       statusId: statusId,
     };
     dispatch(changeStatusOrderThunk(sendData)).then((res) => {
-      if (res?.payload?.message == "Status updated successfully") {
+      if (res?.payload?.message == messages.STATUS_UPDATED_SUCCESSFULLY) {
         toast.success("CậP nhật đơn hàng thành công thành công", {
           position: "top-right",
           autoClose: 3000,

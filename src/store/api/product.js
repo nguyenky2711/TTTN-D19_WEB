@@ -76,6 +76,26 @@ const product = {
         const url = `/api/products/discount/${data[0]}`;
         return internshipTransport.put(url, data[1]);
     },
+    createLike: (data) => {
+        const url = `/api/products/items/like`;
+        return internshipTransport.post(url, data);
+    },
+    createDislike: (data) => {
+        const url = `/api/products/items/dislike`;
+        return internshipTransport.post(url, data);
+    },
+    deleteLike: (data) => {
+        const url = `/api/products/items/like`;
+        return internshipTransport.delete(url, data);
+    },
+    deleteDislike: (data) => {
+        const url = `/api/products/items/dislike`;
+        return internshipTransport.delete(url, data);
+    },
+    getReviewsByItemId: (data) => {
+        const url = `/api/products/item/review`;
+        return internshipTransport.get(url, data);
+    },
 
 };
 
